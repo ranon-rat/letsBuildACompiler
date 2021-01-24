@@ -50,9 +50,10 @@ Before starting to code, make sure you have a  baseline  copy  of
 the  "cradle" that I gave last time.  We'll be using it again for
 other experiments.  Then add this code:
 
-```cobol
 
-* Parse and Translate a Math Expression 
+```pascal
+
+{ Parse and Translate a Math Expression }
 
 procedure Expression;
 begin
@@ -64,7 +65,8 @@ end;
 And add the  line  "Expression;"  to  the main program so that it
 reads:
                               
-```cobol
+
+```pascal
 begin
    Init;
    Expression;
@@ -132,8 +134,9 @@ as Term, and enter the following new version of Expression:
 
 
 
-```cobol
-*Parse and Translate an Expression 
+
+```pascal
+{Parse and Translate an Expression }
 
 procedure Expression;
 begin
@@ -150,8 +153,9 @@ end;
 
 Next, just above Expression enter these two procedures:
 
-```cobol
-* Recognize and Translate an Add 
+
+```pascal
+{ Recognize and Translate an Add }
 
 procedure Add;
 begin
@@ -160,9 +164,8 @@ begin
    EmitLn('ADD D1,D0');
 end;
 ```
-
-```cobol
-* Recognize and Translate a Subtract 
+```pascal
+{ Recognize and Translate a Subtract }
 
 procedure Subtract;
 begin
@@ -222,8 +225,8 @@ the wrong way, so we end up with the wrong  sign  for the result.
 So let's fix up procedure Subtract with a  sign-changer,  so that
 it reads
 
-```cobol
-* Recognize and Translate a Subtract 
+```pascal
+{ Recognize and Translate a Subtract }
 
 procedure Subtract;
 begin
@@ -270,8 +273,8 @@ We  can  accomodate  this definition of an  expression  with  the
 addition of a simple loop to procedure Expression:
 
 
-```cobol
-* Parse and Translate an Expression 
+```pascal
+{ Parse and Translate an Expression }
 
 procedure Expression;
 begin
@@ -392,8 +395,8 @@ listing below is the complete set of parsing routines.  (Note the
 way we handle the reversal of operands in Divide.)
 
 
-```cobol
-* Parse and Translate a Math Factor 
+```pascal
+{ Parse and Translate a Math Factor }
 
 procedure Factor;
 begin
@@ -401,8 +404,8 @@ begin
 end;
 
 ```
-```cobol
-* Recognize and Translate a Multiply 
+```pascal
+{ Recognize and Translate a Multiply }
 
 procedure Multiply;
 begin
@@ -411,9 +414,8 @@ begin
    EmitLn('MULS (SP)+,D0');
 end;
 ```
-
-```cobol
-* Recognize and Translate a Divide 
+```pascal
+{ Recognize and Translate a Divide }
 
 procedure Divide;
 begin
@@ -424,8 +426,8 @@ begin
 end;
 
 ```
-```cobol
-* Parse and Translate a Math Term 
+```pascal
+{ Parse and Translate a Math Term }
 
 procedure Term;
 begin
@@ -440,10 +442,9 @@ begin
    end;
 end;
 ```
+```pascal
 
-```cobol
-
-* Recognize and Translate an Add
+{ Recognize and Translate an Add}
 
 procedure Add;
 begin
@@ -452,9 +453,8 @@ begin
    EmitLn('ADD (SP)+,D0');
 end;
 ```
-
-```cobol
-* Recognize and Translate a Subtract 
+```pascal
+{ Recognize and Translate a Subtract }
 
 procedure Subtract;
 begin
@@ -464,9 +464,8 @@ begin
    EmitLn('NEG D0');
 end;
 ```
-
-```cobol
-* Parse and Translate an Expression 
+```pascal
+{ Parse and Translate an Expression }
 
 procedure Expression;
 begin
@@ -518,8 +517,8 @@ Complicated or not, we can take care of this by adding just a few
 lines of Pascal to procedure Factor:
                              
 
-```cobol
-* Parse and Translate a Math Factor 
+```pascal
+{ Parse and Translate a Math Factor }
 
 procedure Expression; Forward;
 
@@ -566,8 +565,8 @@ of Expression:
 
 
 
-```cobol
-* Parse and Translate an Expression 
+```pascal
+{ Parse and Translate an Expression }
 
 procedure Expression;
 begin
@@ -592,8 +591,8 @@ function IsAddop.  Since the test for an addop appeared  twice, I
 chose  to  embed  it in the new function.  The  form  of  IsAddop
 should be apparent from that for IsAlpha.  Here it is:
 
-```cobol
-* Recognize an Addop 
+```pascal
+{ Recognize an Addop }
 
 function IsAddop(c: char): boolean;
 begin
