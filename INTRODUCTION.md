@@ -378,7 +378,7 @@ begin
    Init;
 end.
 {--------------------------------------------------------------}
-
+```
 
 That's it for this introduction.  Copy the code above into TP and
 compile it.  Make sure that it compiles and runs  correctly. Then
