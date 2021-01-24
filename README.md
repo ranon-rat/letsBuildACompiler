@@ -27,6 +27,7 @@ Read the tutorial on-line
 </li></ul>
 Download the tutorial
 It's available in two formats, plain text, and with printer control characters so it will print reasonably on an Epson printer.
-<ul>
+
+  
  Return to the [I.E.C.C. Home Page.](https://compilers.iecc.com/)
 This page © 1997-2008 I.E.C.C.
