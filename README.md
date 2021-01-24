@@ -3,7 +3,7 @@ This fifteen-part series, written from 1988 to 1995, is a non-technical introduc
 Read the tutorial on-line
 <ul>
 <li>
-  <a href="tutor1.txt">Part 1: INTRODUCTION
+  <a href="https://github.com/ranon-rat/letsBuildACompiler/blob/main/INTRODUCTION.md">Part 1: INTRODUCTION
  </a>
 </li>
 <li>
