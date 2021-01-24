@@ -286,7 +286,7 @@ begin
    end;
 end;
 
-
+```
 
 NOW we're getting somewhere!   This version handles any number of
 terms, and it only cost us two extra lines of code.  As we go on,
