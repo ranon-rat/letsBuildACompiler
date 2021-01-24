@@ -211,39 +211,36 @@ stream.  No other special  techniques are required with Turbo 4.0
 in the stream.
 
 ```cobol
-{--------------------------------------------------------------}
 program Cradle;
 
-{--------------------------------------------------------------}
-{ Constant Declarations }
+* Constant Declarations 
 
 const TAB = ^I;
 
-{--------------------------------------------------------------}
- Variable Declarations }
+* Variable Declarations 
 
-var Look: char;              { Lookahead Character }
-                              
---------------------------------------------------------------}
-{ Read New Character From Input Stream }
+var Look: char;              *Lookahead Character 
+```                              
+```cobol
+* Read New Character From Input Stream 
 
 procedure GetChar;
 begin
    Read(Look);
 end;
-
-{--------------------------------------------------------------}
-{ Report an Error }
+```
+```cobol
+* Report an Error 
 
 procedure Error(s: string);
 begin
    WriteLn;
    WriteLn(^G, 'Error: ', s, '.');
 end;
+```
 
-
-{--------------------------------------------------------------}
-{ Report Error and Halt }
+```cobol
+* Report Error and Halt 
 
 procedure Abort(s: string);
 begin
@@ -251,46 +248,46 @@ begin
    Halt;
 end;
 
-
-{--------------------------------------------------------------}
-{ Report What Was Expected }
+```
+```cobol
+* Report What Was Expected 
 
 procedure Expected(s: string);
 begin
    Abort(s + ' Expected');
 end;
+```
+```cobol
 
-{--------------------------------------------------------------}
-{ Match a Specific Input Character }
+* Match a Specific Input Character 
 
 procedure Match(x: char);
 begin
    if Look = x then GetChar
    else Expected('''' + x + '''');
 end;
+```
 
-
-{--------------------------------------------------------------}
-{ Recognize an Alpha Character }
+```cobol
+* Recognize an Alpha Character 
 
 function IsAlpha(c: char): boolean;
 begin
    IsAlpha := upcase(c) in ['A'..'Z'];
 end;
-                              
+```
 
-{--------------------------------------------------------------}
-
-{ Recognize a Decimal Digit }
+```cobol                              
+* Recognize a Decimal Digit 
 
 function IsDigit(c: char): boolean;
 begin
    IsDigit := c in ['0'..'9'];
 end;
+```
 
-
-{--------------------------------------------------------------}
-{ Get an Identifier }
+```cobol
+* Get an Identifier 
 
 function GetName: char;
 begin
@@ -299,9 +296,9 @@ begin
    GetChar;
 end;
 
-
-{--------------------------------------------------------------}
-{ Get a Number }
+```
+```cobol
+* Get a Number 
 
 function GetNum: char;
 begin
@@ -309,10 +306,10 @@ begin
    GetNum := Look;
    GetChar;
 end;
+```
+```cobol
+* Output a String with Tab 
 
-
-{--------------------------------------------------------------}
-{ Output a String with Tab }
 
 procedure Emit(s: string);
 begin
@@ -320,33 +317,33 @@ begin
 end;
 
 
-
-
-{--------------------------------------------------------------}
-{ Output a String with Tab and CRLF }
+```
+```cobol
+* Output a String with Tab and CRLF 
 
 procedure EmitLn(s: string);
 begin
    Emit(s);
    WriteLn;
 end;
-
-{--------------------------------------------------------------}
-{ Initialize }
+```
+```cobol
+* Initialize }
 
 procedure Init;
 begin
    GetChar;
 end;
 
+```
 
-{--------------------------------------------------------------}
-{ Main Program }
+```cobol
+*Main Program 
 
 begin
    Init;
 end.
-{--------------------------------------------------------------}
+
 ```
 
 That's it for this introduction.  Copy the code above into TP and
