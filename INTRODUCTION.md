@@ -1,34 +1,6 @@
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # LET'S BUILD A COMPILER!
-By Jack W. Crenshaw, Ph.D.
-
-           24 July 1988
+By Jack W. Crenshaw, Ph.D. 24 July 1988
 
 
 
