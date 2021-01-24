@@ -210,27 +210,26 @@ stream.  No other special  techniques are required with Turbo 4.0
 ... each successive call to  GetChar will read the next character
 in the stream.
 
-```cobol
+```pascal
 program Cradle;
 
-* Constant Declarations 
+{ Constant Declarations }
 
 const TAB = ^I;
 
-* Variable Declarations 
+{ Variable Declarations }
 
-var Look: char;              *Lookahead Character 
-```                              
-```cobol
-* Read New Character From Input Stream 
+var Look: char;              {Lookahead Character }
+
+{ Read New Character From Input Stream }
 
 procedure GetChar;
 begin
    Read(Look);
 end;
 ```
-```cobol
-* Report an Error 
+```pascal
+{ Report an Error }
 
 procedure Error(s: string);
 begin
@@ -238,9 +237,8 @@ begin
    WriteLn(^G, 'Error: ', s, '.');
 end;
 ```
-
-```cobol
-* Report Error and Halt 
+```pascal
+{Report Error and Halt }
 
 procedure Abort(s: string);
 begin
@@ -249,17 +247,18 @@ begin
 end;
 
 ```
-```cobol
-* Report What Was Expected 
+```pascal
+
+{Report What Was Expected }
 
 procedure Expected(s: string);
 begin
    Abort(s + ' Expected');
 end;
 ```
-```cobol
+```pascal
 
-* Match a Specific Input Character 
+{ Match a Specific Input Character }
 
 procedure Match(x: char);
 begin
@@ -267,27 +266,24 @@ begin
    else Expected('''' + x + '''');
 end;
 ```
-
-```cobol
-* Recognize an Alpha Character 
+```pascal
+{ Recognize an Alpha Character }
 
 function IsAlpha(c: char): boolean;
 begin
    IsAlpha := upcase(c) in ['A'..'Z'];
 end;
 ```
-
-```cobol                              
-* Recognize a Decimal Digit 
+```pascal                           
+{ Recognize a Decimal Digit }
 
 function IsDigit(c: char): boolean;
 begin
    IsDigit := c in ['0'..'9'];
 end;
 ```
-
-```cobol
-* Get an Identifier 
+```pascal
+{Get an Identifier }
 
 function GetName: char;
 begin
@@ -295,10 +291,9 @@ begin
    GetName := UpCase(Look);
    GetChar;
 end;
-
 ```
-```cobol
-* Get a Number 
+```pascal
+{ Get a Number }
 
 function GetNum: char;
 begin
@@ -307,19 +302,17 @@ begin
    GetChar;
 end;
 ```
-```cobol
-* Output a String with Tab 
+```pascal
+{Output a String with Tab }
 
 
 procedure Emit(s: string);
 begin
    Write(TAB, s);
 end;
-
-
 ```
-```cobol
-* Output a String with Tab and CRLF 
+```pascal
+{ Output a String with Tab and CRLF }
 
 procedure EmitLn(s: string);
 begin
@@ -327,18 +320,16 @@ begin
    WriteLn;
 end;
 ```
-```cobol
-* Initialize }
+```pascal
+{ Initialize }
 
 procedure Init;
 begin
    GetChar;
 end;
-
 ```
-
-```cobol
-*Main Program 
+```pascal
+{Main Program}
 
 begin
    Init;
