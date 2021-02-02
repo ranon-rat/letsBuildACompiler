@@ -6,7 +6,7 @@ By:Jack W. Crenshaw, Ph.D.
 
 
 # Part III: MORE EXPRESSIONS
-````
+```
 *****************************************************************
 *                                                               *
 *                        COPYRIGHT NOTICE                       *
@@ -14,6 +14,7 @@ By:Jack W. Crenshaw, Ph.D.
 *   Copyright (C) 1988 Jack W. Crenshaw. All rights reserved.   *
 *                                                               *
 *****************************************************************
+
 ```
 
 # INTRODUCTION
@@ -23,9 +24,9 @@ and  translate a general math expression.  We  ended  up  with  a
 simple parser that  could handle arbitrarily complex expressions,
 with two restrictions:
 
-  o No variables were allowed, only numeric factors
+- No variables were allowed, only numeric factors
 
-  o The numeric factors were limited to single digits
+- The numeric factors were limited to single digits
 
 In this installment, we'll get  rid of those restrictions.  We'll
 also extend what  we've  done  to  include  assignment statements
@@ -38,23 +39,23 @@ We'll use the trick when it serves us to do so, confident that we
 can discard it when we're ready to.
 
 
-VARIABLES
+# VARIABLES
 
 Most expressions  that we see in practice involve variables, such
 as
-
-               b * b + 4 * a * c
-
+```py
+b * b + 4 * a * c
+```
 No  parser is much good without being able  to  deal  with  them.
 Fortunately, it's also quite easy to do.
 
 Remember that in our parser as it currently stands, there are two
 kinds of  factors  allowed:  integer  constants  and  expressions
 within parentheses.  In BNF notation,
-
-     <factor> ::= <number> | (<expression>)
-
-The '|' stands for "or", meaning of course that either form  is a
+```haskell
+<factor> ::= <number> | (<expression>)
+```
+The `|` stands for `or`, meaning of course that either form  is a
 legal form for a factor.   Remember,  too, that we had no trouble
 knowing which was which  ...  the  lookahead  character is a left
 paren '(' in one case, and a digit in the other.
@@ -62,10 +63,9 @@ paren '(' in one case, and a digit in the other.
 It probably won't come as too much of a surprise that  a variable
 is just another kind of factor.    So  we extend the BNF above to
 read:
-
-
-     <factor> ::= <number> | (<expression>) | <variable>
-
+```
+<factor> ::= <number> | (<expression>) | <variable>
+```
 
 Again, there is no  ambiguity:  if  the  lookahead character is a
 letter,  we  have  a variable; if a digit, we have a number. Back
@@ -78,14 +78,14 @@ that most  68000 operating systems, including the SK*DOS that I'm
 using, require the code to be  written  in "position-independent"
 form, which  basically means that everything is PC-relative.  The
 format for a load in this language is
-
-               MOVE X(PC),D0
-
+```pascal
+MOVE X(PC),D0
+```
 where X is, of course, the variable name.  Armed with that, let's
 modify the current version of Factor to read:
 
+```pascal
 
-{---------------------------------------------------------------}
 { Parse and Translate a Math Factor }
 
 procedure Expression; Forward;
@@ -102,8 +102,8 @@ begin
    else
       EmitLn('MOVE #' + GetNum + ',D0');
 end;
-{--------------------------------------------------------------}
 
+```
 
 I've  remarked before how easy it is to  add  extensions  to  the
 parser, because of  the  way  it's  structured.  You can see that
@@ -115,7 +115,7 @@ OK, compile and test this new version of the parser.  That didn't
 hurt too badly, did it?
                               
 
-FUNCTIONS
+# FUNCTIONS
 
 There is only one  other  common kind of factor supported by most
 languages: the function call.  It's really too early  for  us  to
@@ -134,7 +134,7 @@ by looking at the current  lookahead character exactly what to do
 next.  That isn't the case when we add functions.  Every language
 has some naming rules  for  what  constitutes a legal identifier.
 For the present, ours is simply that it  is  one  of  the letters
-'a'..'z'.  The  problem  is  that  a variable name and a function
+`a`..`z`.  The  problem  is  that  a variable name and a function
 name obey  the  same  rules.   So how can we tell which is which?
 One way is to require that they each be declared before  they are
 used.    Pascal  takes that approach.  The other is that we might
@@ -145,9 +145,9 @@ Since  we  don't  yet have a mechanism for declaring types, let's
 use the C  rule for now.  Since we also don't have a mechanism to
 deal  with parameters, we can only handle  empty  lists,  so  our
 function calls will have the form
-
-                    x()  .
-
+```
+x()  .
+```
 Since  we're  not  dealing  with  parameter lists yet,  there  is
 nothing  to do but to call the function, so we need only to issue
 a BSR (call) instead of a MOVE.
@@ -157,7 +157,7 @@ of the test in Factor, let's treat them in a  separate procedure.
 Modify Factor to read:
 
 
-{---------------------------------------------------------------}
+```pascal
 { Parse and Translate a Math Factor }
 
 procedure Expression; Forward;
@@ -174,13 +174,10 @@ begin
    else
       EmitLn('MOVE #' + GetNum + ',D0');
 end;
-{--------------------------------------------------------------}
-
-
+```
 and insert before it the new procedure
 
-
-{---------------------------------------------------------------}
+```pascal
 { Parse and Translate an Identifier }
 
 procedure Ident;
@@ -195,9 +192,8 @@ begin
    else
       EmitLn('MOVE ' + Name + '(PC),D0')
 end;
-{---------------------------------------------------------------}
 
-
+```
 OK, compile and  test  this  version.  Does  it  parse  all legal
 expressions?  Does it correctly flag badly formed ones?
 
@@ -217,7 +213,7 @@ requiring further lookahead.   Even  if  you  had to look several
 tokens ahead, the principle would still work.
 
 
-MORE ON ERROR HANDLING
+# MORE ON ERROR HANDLING
 
 As long as we're talking  philosophy,  there's  another important
 issue to point out:  error  handling.    Notice that although the
@@ -260,25 +256,25 @@ temporary.   All  we  have  to  do  is assert that the expression
 should end with an end-of-line , i.e., a carriage return.
 
 To see what I'm talking about, try the input line
-
-               1+2 <space> 3+4
-
+```pascal
+1+2 <space> 3+4
+```
 See  how the space was treated as a terminator?  Now, to make the
 compiler properly flag this, add the line
-
+```
                if Look <> CR then Expected('Newline');
-
+```
 in the main  program,  just  after  the call to Expression.  That
 catches anything left over in the input stream.  Don't  forget to
 define CR in the const statement:
-
+```
                CR = ^M;
-
+```
 As usual, recompile the program and verify that it does what it's
 supposed to.
 
 
-ASSIGNMENT STATEMENTS
+# ASSIGNMENT STATEMENTS
 
 OK,  at  this  point we have a parser that works very nicely. I'd
 like to  point  out  that  we  got  it  using  only  88  lines of
@@ -290,15 +286,15 @@ code or object size.  We just stuck to the KISS principle.
 Of course, parsing an expression  is not much good without having
 something to do with it afterwards.  Expressions USUALLY (but not
 always) appear in assignment statements, in the form
-
+```pascal
           <Ident> = <Expression>
-
+```
 We're only a breath  away  from being able to parse an assignment
 statement, so let's take that  last  step.  Just  after procedure
 Expression, add the following new procedure:
 
 
-{--------------------------------------------------------------}
+```pascal
 { Parse and Translate an Assignment Statement }
 
 procedure Assignment;
@@ -310,8 +306,7 @@ begin
    EmitLn('LEA ' + Name + '(PC),A0');
    EmitLn('MOVE D0,(A0)')
 end;
-{--------------------------------------------------------------}
-
+```
 
 Note again that the  code  exactly parallels the BNF.  And notice
 further that  the error checking was painless, handled by GetName
@@ -339,7 +334,7 @@ installment.  And the other statements will all fall in  line, as
 long as we remember to KISS.
 
 
-MULTI-CHARACTER TOKENS
+# MULTI-CHARACTER TOKENS
 
 Throughout  this   series,   I've   been   carefully  restricting
 everything  we  do  to  single-character  tokens,  all  the while
@@ -370,16 +365,15 @@ must be a letter, but the rest can be  alphanumeric  (letters  or
 numbers).  To  deal  with  this,  we  need  one  other recognizer
 function
 
-
-{--------------------------------------------------------------}
+```
 { Recognize an Alphanumeric }
 
 function IsAlNum(c: char): boolean;
 begin
    IsAlNum := IsAlpha(c) or IsDigit(c);
 end;
-{--------------------------------------------------------------}
 
+```
 
 Add this function to your parser.  I put mine just after IsDigit.
 While you're  at  it,  might  as  well  include it as a permanent
@@ -388,8 +382,7 @@ member of Cradle, too.
 Now, we need  to  modify  function  GetName  to  return  a string
 instead of a character:
 
-
-{--------------------------------------------------------------}
+```
 { Get an Identifier }
 
 function GetName: string;
@@ -403,7 +396,7 @@ begin
    end;
    GetName := Token;
 end;
-{--------------------------------------------------------------}
+```
 
 
 Similarly, modify GetNum to read:
