@@ -1702,7 +1702,7 @@ the following changes:
 
 Here is the program in its entirety:
 
-```
+```pascal
 {--------------------------------------------------------------}
 program KISS;
                              
