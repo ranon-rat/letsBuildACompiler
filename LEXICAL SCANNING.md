@@ -1,15 +1,12 @@
-                     LET'S BUILD A COMPILER!
+# LET'S BUILD A COMPILER!
 
-                                By
-
-                     Jack W. Crenshaw, Ph.D.
-
-                         7 November 1988
+By:Jack W. Crenshaw, Ph.D.
+7 November 1988
 
 
-                    Part VII: LEXICAL SCANNING
+# Part VII: LEXICAL SCANNING
 
-
+```
 *****************************************************************
 *                                                               *
 *                        COPYRIGHT NOTICE                       *
@@ -17,9 +14,9 @@
 *   Copyright (C) 1988 Jack W. Crenshaw. All rights reserved.   *
 *                                                               *
 *****************************************************************
+```
 
-
-INTRODUCTION
+# INTRODUCTION
 
 In the last installment, I left you with a  compiler  that  would
 ALMOST  work,  except  that  we  were  still  limited to  single-
@@ -80,7 +77,7 @@ scanners have many applications  outside  of  compilers,  you may
 well find this to be the most useful session for you.
 
 
-LEXICAL SCANNING
+# LEXICAL SCANNING
 
 Lexical scanning is the process of scanning the  stream  of input
 characters and separating it  into  strings  called tokens.  Most
@@ -108,13 +105,13 @@ theoretical bases.
 In  1956,  Noam  Chomsky  defined  the  "Chomsky   Hierarchy"  of
 grammars.  They are:
 
-     o Type 0:  Unrestricted (e.g., English)
+- Type 0:  Unrestricted (e.g., English)
 
-     o Type 1:  Context-Sensitive
+- Type 1:  C-ntext-Sensitive
 
-     o Type 2:  Context-Free
+- Type 2:  C-ntext-Free
 
-     o Type 3:  Regular
+- Type 3:  Regular
 
 A few features of the typical programming  language (particularly
 the older ones, such as FORTRAN) are Type  1,  but  for  the most
@@ -165,7 +162,7 @@ to the parser proper as indivisible tokens.  It's also considered
 normal to let the scanner have the job of identifying keywords.
 
 
-STATE MACHINES AND ALTERNATIVES
+# STATE MACHINES AND ALTERNATIVES
 
 I  mentioned  that  the regular expressions can be parsed using a
 state machine.   In  most  compiler  texts,  and  indeed  in most
@@ -209,7 +206,7 @@ localized  scanner; although,  as you will see,  the  idea  of  a
 distributed scanner still has its merits.
 
 
-SOME EXPERIMENTS IN SCANNING
+# SOME EXPERIMENTS IN SCANNING
 
 Before  getting  back  to our compiler,  it  will  be  useful  to
 experiment a bit with the general concepts.
@@ -227,7 +224,7 @@ We  have already dealt with similar  items  in  Installment  III.
 Let's begin (as usual) with a bare cradle.  Not  surprisingly, we
 are going to need a new recognizer:
                               
-
+```
 {--------------------------------------------------------------}
 { Recognize an Alphanumeric Character }
 
@@ -237,11 +234,11 @@ begin
 end;
 {--------------------------------------------------------------}
 
-
+```
 Using this let's write the following two routines, which are very
 similar to those we've used before:
 
-
+```
 {--------------------------------------------------------------}
 { Get an Identifier }
 
@@ -273,7 +270,7 @@ begin
    GetNum := x;
 end;
 {--------------------------------------------------------------}
-
+```
 
 (Notice  that this version of GetNum returns  a  string,  not  an
 integer as before.)
@@ -290,7 +287,7 @@ anything else.
 Test the other routine similarly.
 
 
-WHITE SPACE
+# WHITE SPACE
 
 We  also  have  dealt with embedded white space before, using the
 two  routines  IsWhite  and  SkipWhite.    Make  sure that  these
@@ -303,7 +300,7 @@ at the end of both GetName and GetNum.
 
 Now, let's define the new procedure:
 
-
+```
 {--------------------------------------------------------------}
 { Lexical Scanner }
 
@@ -321,10 +318,10 @@ begin
 end;
 {--------------------------------------------------------------}
 
-
+```
 We can call this from the new main program:
 
-
+```
 {--------------------------------------------------------------}
 { Main Program }
 
@@ -337,7 +334,7 @@ begin
    until Token = CR;
 end.
 {--------------------------------------------------------------}
-
+```
 
 (You will have to add the declaration of the string Token  at the
 beginning of the program.  Make it any convenient length,  say 16
@@ -347,7 +344,7 @@ Now,  run the program.  Note how the  input  string  is,  indeed,
 separated into distinct tokens.
 
 
-STATE MACHINES
+# STATE MACHINES
 
 For  the  record,  a  parse  routine  like  GetName  does  indeed
 implement a state machine.  The state is implicit in  the current
@@ -360,7 +357,7 @@ idea:
 
            |-----> Other---------------------------> Error
            |
-   Start -------> Letter ---------------> Other -----> Finish
+      Start -------> Letter ---------------> Other -----> Finish
            ^                        V
            |                        |
            |<----- Letter <---------|
@@ -400,7 +397,7 @@ prefer it a lot over the table-driven approach.  It  also results
 is a small, tight, and fast scanner.
 
 
-NEWLINES
+# NEWLINES
 
 Moving right along, let's modify  our scanner to handle more than
 one line.  As I mentioned last time, the most straightforward way
@@ -414,14 +411,14 @@ To do this, simply modify the single executable  line  of IsWhite
 to read:
 
 
-   IsWhite := c in [' ', TAB, CR, LF];
+     IsWhite := c in [' ', TAB, CR, LF];
 
 
 We need to give the main  program  a new stop condition, since it
 will never see a CR.  Let's just use:
 
 
-   until Token = '.';
+     until Token = '.';
 
 
 OK, compile this  program  and  run  it.   Try a couple of lines,
@@ -465,7 +462,7 @@ it's not in your current version of the cradle, put it there now.
 
 Also, modify the main program to read:
 
-
+```
 {--------------------------------------------------------------}
 { Main Program }
 
@@ -479,7 +476,7 @@ begin
    until Token = '.';
 end.
 {--------------------------------------------------------------}
-
+```
 
 Note the "guard"  test  preceding  the  call to Fin.  That's what
 makes the whole thing work, and ensures that we don't try to read
@@ -520,7 +517,7 @@ that I happen to like, but I want you to know how to choose other
 ways for yourselves.
 
 
-OPERATORS
+# OPERATORS
 
 We  could  stop now and have a  pretty  useful  scanner  for  our
 purposes.  In the fragments of KISS that we've built so  far, the
@@ -537,7 +534,7 @@ them if necessary.
 Needless to say, we  can  handle operators very much the same way
 as the other tokens.  Let's start with a recognizer:
                              
-
+```
 {--------------------------------------------------------------}
 { Recognize Any Operator }
 
@@ -546,7 +543,7 @@ begin
    IsOp := c in ['+', '-', '*', '/', '<', '>', ':', '='];
 end;
 {--------------------------------------------------------------}
-
+```
 
 It's important to  note  that  we  DON'T  have  to  include every
 possible  operator in this list.   For  example,  the  paretheses
@@ -557,7 +554,7 @@ appear in multi-character operators.  (For specific languages, of
 course, the list can always be edited.)
 
 Now, let's modify Scan to read:
-
+```
 
 {--------------------------------------------------------------}
 { Lexical Scanner }
@@ -579,14 +576,14 @@ begin
    SkipWhite;
 end;
 {--------------------------------------------------------------}
-
+```
 
 Try the program now.  You  will  find that any code fragments you
 care  to throw at it will be neatly  broken  up  into  individual
 tokens.
 
 
-LISTS, COMMAS AND COMMAND LINES
+# LISTS, COMMAS AND COMMAND LINES
 
 Before getting back to the main thrust of our study, I'd  like to
 get on my soapbox for a moment.
@@ -602,7 +599,7 @@ I think this is inexcusable.  It's too  easy  to  write  a parser
 that will handle  both  spaces  and  commas  in  a  flexible way.
 Consider the following procedure:
 
-
+```
 {--------------------------------------------------------------}
 { Skip Over a Comma }
 
@@ -615,7 +612,7 @@ begin
    end;
 end;
 {--------------------------------------------------------------}
-
+```
 
 This eight-line procedure will skip over  a  delimiter consisting
 of any number (including zero)  of spaces, with zero or one comma
@@ -650,7 +647,7 @@ end  up with a better program, and it will be easier to write, to
 boot.
 
 
-GETTING FANCY
+# GETTING FANCY
 
 OK, at this point we have a pretty nice lexical scanner that will
 break  an  input stream up into tokens.  We could use  it  as  it
@@ -716,7 +713,7 @@ handled with its C-like extensions for pointers.
 
 First, modify your declarations like this:
 
-
+```
 {--------------------------------------------------------------}
 { Type Declarations  }
 
@@ -726,7 +723,7 @@ type Symbol = string[8];
 
      TabPtr = ^SymTab;
 {--------------------------------------------------------------}
-
+```
 
 (The dimension  used  in  SymTab  is  not  real ... no storage is
 allocated by the declaration itself,  and the number need only be
@@ -734,7 +731,7 @@ allocated by the declaration itself,  and the number need only be
 
 Now, just beneath those declarations, add the following:
 
-
+```
 {--------------------------------------------------------------}
 { Definition of Keywords and Token Types }
 
@@ -742,11 +739,11 @@ const KWlist: array [1..4] of Symbol =
               ('IF', 'ELSE', 'ENDIF', 'END');
 
 {--------------------------------------------------------------}
-
+```
 
 Next, insert the following new function:
 
-
+```
 {--------------------------------------------------------------}
 { Table Lookup }
 
@@ -1183,7 +1180,7 @@ single-character tokens, exist  already in our previous programs.
 I built it by judicious copying of these files,  but  I  wouldn't
 dare try to lead you through that process.  Instead, to avoid any
 confusion, the whole program is shown below:
-
+```
 
 {--------------------------------------------------------------}
 program KISS;
@@ -1651,7 +1648,7 @@ begin
 end.
 {--------------------------------------------------------------}
 
-
+```
 A couple of comments:
 
  (1) The form for the expression parser,  using  FirstTerm, etc.,
