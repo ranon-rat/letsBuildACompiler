@@ -6,7 +6,7 @@ By:Jack W. Crenshaw, Ph.D.
 
 # Part VI: BOOLEAN EXPRESSIONS
 
-
+```
 *****************************************************************
 *                                                               *
 *                        COPYRIGHT NOTICE                       *
@@ -14,7 +14,7 @@ By:Jack W. Crenshaw, Ph.D.
 *   Copyright (C) 1988 Jack W. Crenshaw. All rights reserved.   *
 *                                                               *
 *****************************************************************
-
+```
 
 # INTRODUCTION
 
@@ -111,7 +111,9 @@ once in a given term. So an expression like
                     a * -b
 
 or worse yet,
-                    a - -b
+```
+a - -b
+```
 
 is not allowed.  In Boolean algebra, though, the expression
 
@@ -430,7 +432,7 @@ Next, of course, we have to expand the definition  of  a  Boolean
 expression.  We already have the BNF rule:
 
 
-   <b-expression> ::= <b-term> [<orop> <b-term>]*
+     <b-expression> ::= <b-term> [<orop> <b-term>]*
 
 
 I prefer the Pascal versions of the "orops",  OR  and  XOR.   But
@@ -509,8 +511,7 @@ than  the  numeric  version,  since  there  is  no equivalent  of
 division.
 
 
-
-
+```
 {---------------------------------------------------------------}
 { Parse and Translate a Boolean Term }
 
@@ -525,13 +526,13 @@ begin
    end;
 end;
 {--------------------------------------------------------------}
-
+```
 
 Now,  we're  almost  home.  We are  translating  complex  Boolean
 expressions, although only for constant values.  The next step is
 to allow for the NOT.  Write the following procedure:
 
-
+```
 {--------------------------------------------------------------}
 { Parse and Translate a Boolean Factor with NOT }
 
@@ -546,7 +547,7 @@ begin
       BoolFactor;
 end;
 {--------------------------------------------------------------}
-
+```
 And  rename  the  earlier procedure to BoolFactor.  Now try that.
 At this point  the  parser  should  be able to handle any Boolean
 expression you care to throw at it.  Does it?  Does it trap badly
@@ -559,7 +560,7 @@ have  to do that for the Boolean  factor,  because  those  little
 items get taken care of by the next step.  It  takes  just  a one
 line addition to BoolFactor to take care of relations:
 
-
+```
 {--------------------------------------------------------------}
 { Parse and Translate a Boolean Factor }
 
@@ -573,7 +574,7 @@ begin
       else Relation;
 end;
 {--------------------------------------------------------------}
-
+```
 
 You  might be wondering when I'm going  to  provide  for  Boolean
 variables and parenthesized Boolean expressions.  The  answer is,
@@ -590,7 +591,7 @@ checking out what we already have.  So for now let's just write a
 dummy  version  of  Relation  that  does nothing except  eat  the
 current character, and write a little message:
 
-
+```
 {---------------------------------------------------------------}
 { Parse and Translate a Relation }
 
