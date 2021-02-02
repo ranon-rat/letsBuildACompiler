@@ -601,7 +601,7 @@ begin
    GetChar;
 end;
 {--------------------------------------------------------------}
-
+```
 OK, key  in  this  code  and  give  it a try.  All the old things
 should still work ... you should be able to generate the code for
 ANDs, ORs, and  NOTs.    In  addition, if you type any alphabetic
@@ -613,7 +613,7 @@ To  get  that,  though, there is a bit of groundwork that we must
 lay first.  Recall that a relation has the form
 
 
- <relation>     ::= | <expression> [<relop> <expression]
+     <relation>     ::= | <expression> [<relop> <expression]
 
 
 Since  we have a new kind of operator, we're also going to need a
@@ -622,7 +622,7 @@ below.  Because of the single-character limitation,  I'm sticking
 to the four operators  that  can be encoded with such a character
 (the "not equals" is encoded by '#').
 
-
+```
 {--------------------------------------------------------------}
 { Recognize a Relop }
 
@@ -631,7 +631,7 @@ begin
    IsRelop := c in ['=', '#', '<', '>'];
 end;
 {--------------------------------------------------------------}
-
+```
 
 Now, recall  that  we're  using  a zero or a -1 in register D0 to
 represent  a Boolean value, and also  that  the  loop  constructs
@@ -693,7 +693,7 @@ anything.
 In  any  case,  we're now ready to look at the code for Relation.
 It's shown below with its companion procedures:
 
-
+```
 {---------------------------------------------------------------}
 { Recognize and Translate a Relational "Equals" }
 
@@ -730,8 +730,8 @@ begin
    EmitLn('CMP (SP)+,D0');
    EmitLn('SGE D0');
 end;
-
-
+```
+```
 {---------------------------------------------------------------}
 { Recognize and Translate a Relational "Greater Than" }
 
@@ -762,7 +762,7 @@ begin
    end;
 end;
 {---------------------------------------------------------------}
-
+```
 Now, that call to  Expression  looks familiar!  Here is where the
 editor of your system comes in handy.  We have  already generated
 code  for  Expression  and its buddies in previous sessions.  You
@@ -776,7 +776,7 @@ so  you  may  prefer  to  hold  off  on  that  until you're  sure
 
 everything is working.
 
-
+```
 {---------------------------------------------------------------}
 { Parse and Translate an Identifier }
 
@@ -899,8 +899,8 @@ begin
 end;
 
 
-
-
+```
+```
 {---------------------------------------------------------------}
 { Parse and Translate an Expression }
 
@@ -916,7 +916,7 @@ begin
    end;
 end;
 {---------------------------------------------------------------}
-
+```
 
 There you have it ... a parser that can  handle  both  arithmetic
 AND Boolean algebra, and things  that combine the two through the
@@ -925,7 +925,7 @@ a safe place for future reference, because in our next step we're
 going to be chopping it up.
 
 
-MERGING WITH CONTROL CONSTRUCTS
+# MERGING WITH CONTROL CONSTRUCTS
 
 At this point, let's go back to the file we had  previously built
 that parses control  constructs.    Remember  those  little dummy
@@ -956,7 +956,7 @@ which stands for "IF a=b X ELSE Y ENDIF".
 What do you think?  Did it work?  Try some others.
 
 
-ADDING ASSIGNMENTS
+# ADDING ASSIGNMENTS
 
 As long as we're this far,  and  we already have the routines for
 expressions in place, we might  as well replace the "blocks" with
@@ -991,7 +991,7 @@ SkipWhite, that skips them only in specified "legal" spots.
 
 Here's the procedure:
 
-
+```
 {--------------------------------------------------------------}
 { Skip a CRLF }
 
@@ -1003,10 +1003,10 @@ end;
 
 {--------------------------------------------------------------}
 
-
+```
 Now, add two calls to Fin in procedure Block, like this:
 
-
+```
 {--------------------------------------------------------------}
 { Recognize and Translate a Statement Block }
 
@@ -1029,7 +1029,7 @@ begin
 end;
 {--------------------------------------------------------------}
 
-
+```
 
 Now, you'll find that you  can use multiple-line "programs."  The
 only restriction is that you can't separate an IF or  WHILE token
