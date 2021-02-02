@@ -402,7 +402,7 @@ end;
 Similarly, modify GetNum to read:
 
 
-{--------------------------------------------------------------}
+```pascal
 { Get a Number }
 
 function GetNum: string;
@@ -416,8 +416,7 @@ begin
    end;
    GetNum := Value;
 end;
-{--------------------------------------------------------------}
-
+```
 
 Amazingly enough, that  is  virtually all the changes required to
 the  parser!  The local variable Name  in  procedures  Ident  and
@@ -428,7 +427,7 @@ Make  this  change,  and  then  recompile and test. _NOW_ do  you
 believe that it's a simple change?
 
 
-WHITE SPACE
+# WHITE SPACE
 
 Before we leave this parser for awhile, let's  address  the issue
 of  white  space.   As it stands now, the parser  will  barf  (or
@@ -457,21 +456,21 @@ Not  surprisingly,  we  start  with  yet  another  new recognizer
 routine:
 
 
-{--------------------------------------------------------------}
+```pascal
 { Recognize White Space }
 
 function IsWhite(c: char): boolean;
 begin
    IsWhite := c in [' ', TAB];
 end;
-{--------------------------------------------------------------}
 
 
+```
 We  also need a routine that  will  eat  white-space  characters,
 until it finds a non-white one:
 
 
-{--------------------------------------------------------------}
+```
 { Skip Over Leading White Space }
 
 procedure SkipWhite;
@@ -479,14 +478,12 @@ begin
    while IsWhite(Look) do
       GetChar;
 end;
-{--------------------------------------------------------------}
-
+```
 
 Now,  add calls to SkipWhite to Match,  GetName,  and  GetNum  as
 shown below:
 
-
-{--------------------------------------------------------------}
+```pascal
 { Match a Specific Input Character }
 
 procedure Match(x: char);
@@ -532,13 +529,13 @@ begin
    SkipWhite;
 end;
 {--------------------------------------------------------------}
-
+```
 (Note  that  I  rearranged  Match  a  bit,  without changing  the
 functionality.)
 
 Finally, we need to skip over leading blanks where we  "prime the
 pump" in Init:
-                             
+```pascal                           
 {--------------------------------------------------------------}
 { Initialize }
 
@@ -549,7 +546,7 @@ begin
 end;
 {--------------------------------------------------------------}
 
-
+```
 Make these changes and recompile the program.  You will find that
 you will have to move Match below SkipWhite, to  avoid  an  error
 message from the Pascal compiler.  Test the program as  always to
@@ -559,7 +556,7 @@ Since we've made quite  a  few  changes  during this session, I'm
 reproducing the entire parser below:
 
 
-{--------------------------------------------------------------}
+
 program parse;
 
 {--------------------------------------------------------------}
@@ -881,9 +878,7 @@ begin
    Assignment;
    If Look <> CR then Expected('NewLine');
 end.
-{--------------------------------------------------------------}
-
-
+```
 Now the parser is complete.  It's got every feature we can put in
 a  one-line "compiler."  Tuck it away in a safe place.  Next time
 we'll move on to a new subject, but we'll still be  talking about
@@ -894,7 +889,7 @@ of action has to be taken.  The information we pick up there will
 serve  us in good stead later on, even if you have no interest in
 interpreters.  See you next time.
 
-
+```
 *****************************************************************
 *                                                               *
 *                        COPYRIGHT NOTICE                       *
@@ -902,3 +897,4 @@ interpreters.  See you next time.
 *   Copyright (C) 1988 Jack W. Crenshaw. All rights reserved.   *
 *                                                               *
 *****************************************************************
+```
