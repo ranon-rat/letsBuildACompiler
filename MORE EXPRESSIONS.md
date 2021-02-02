@@ -564,21 +564,21 @@ program parse;
 
 const TAB = ^I;
        CR = ^M;
-
-{--------------------------------------------------------------}
+```
+```pascal
 { Variable Declarations }
 
 var Look: char;              { Lookahead Character }
-
-{--------------------------------------------------------------}
+```
+```pascal
 { Read New Character From Input Stream }
 
 procedure GetChar;
 begin
    Read(Look);
 end;
-
-{--------------------------------------------------------------}
+```
+```pascal
 { Report an Error }
 
 procedure Error(s: string);
@@ -586,9 +586,8 @@ begin
    WriteLn;
    WriteLn(^G, 'Error: ', s, '.');
 end;
-
-
-{--------------------------------------------------------------}
+```
+```pascal
 { Report Error and Halt }
                              
 procedure Abort(s: string);
@@ -597,8 +596,8 @@ begin
    Halt;
 end;
 
-
-{--------------------------------------------------------------}
+```
+```pascal
 { Report What Was Expected }
 
 procedure Expected(s: string);
@@ -606,26 +605,24 @@ begin
    Abort(s + ' Expected');
 end;
 
-
-{--------------------------------------------------------------}
+```
+```pascal
 { Recognize an Alpha Character }
 
 function IsAlpha(c: char): boolean;
 begin
    IsAlpha := UpCase(c) in ['A'..'Z'];
 end;
-
-
-{--------------------------------------------------------------}
+```
+```pascal
 { Recognize a Decimal Digit }
 
 function IsDigit(c: char): boolean;
 begin
    IsDigit := c in ['0'..'9'];
 end;
-
-
-{--------------------------------------------------------------}
+```
+```pascal
 { Recognize an Alphanumeric }
 
 function IsAlNum(c: char): boolean;
@@ -633,8 +630,8 @@ begin
    IsAlNum := IsAlpha(c) or IsDigit(c);
 end;
 
-
-{--------------------------------------------------------------}
+```
+```pascal
 { Recognize an Addop }
 
 function IsAddop(c: char): boolean;
@@ -642,17 +639,17 @@ begin
    IsAddop := c in ['+', '-'];
 end;
 
-
-{--------------------------------------------------------------}
+```
+```pascal
 { Recognize White Space }
+
                              
 function IsWhite(c: char): boolean;
 begin
    IsWhite := c in [' ', TAB];
 end;
-
-
-{--------------------------------------------------------------}
+```
+```pascal
 { Skip Over Leading White Space }
 
 procedure SkipWhite;
@@ -661,8 +658,8 @@ begin
       GetChar;
 end;
 
-
-{--------------------------------------------------------------}
+```
+```pascal
 { Match a Specific Input Character }
 
 procedure Match(x: char);
@@ -673,9 +670,8 @@ begin
       SkipWhite;
    end;
 end;
-
-
-{--------------------------------------------------------------}
+```
+```pascal
 { Get an Identifier }
 
 function GetName: string;
@@ -690,9 +686,8 @@ begin
    GetName := Token;
    SkipWhite;
 end;
-
-
-{--------------------------------------------------------------}
+```
+```pascal
 { Get a Number }
 
 function GetNum: string;
@@ -707,9 +702,8 @@ begin
    GetNum := Value;
    SkipWhite;
 end;
-
-
-{--------------------------------------------------------------}
+```
+```pascal
 { Output a String with Tab }
 
 procedure Emit(s: string);
@@ -718,7 +712,8 @@ begin
 end;
 
 
-{--------------------------------------------------------------}
+```
+```pascal
 { Output a String with Tab and CRLF }
 
 procedure EmitLn(s: string);
@@ -726,9 +721,8 @@ begin
    Emit(s);
    WriteLn;
 end;
-
-
-{---------------------------------------------------------------}
+```
+```pascal
 { Parse and Translate a Identifier }
 
 procedure Ident;
@@ -743,9 +737,8 @@ begin
    else
       EmitLn('MOVE ' + Name + '(PC),D0');
 end;
-
-
-{---------------------------------------------------------------}
+```
+```pascal
 { Parse and Translate a Math Factor }
 
 procedure Expression; Forward;
@@ -762,9 +755,8 @@ begin
    else
       EmitLn('MOVE #' + GetNum + ',D0');
 end;
-
-
-{--------------------------------------------------------------}
+```
+```pascal
 { Recognize and Translate a Multiply }
 
 procedure Multiply;
@@ -773,9 +765,8 @@ begin
    Factor;
    EmitLn('MULS (SP)+,D0');
 end;
-
-
-{-------------------------------------------------------------}
+```
+```pascal
 { Recognize and Translate a Divide }
 
 procedure Divide;
@@ -786,9 +777,8 @@ begin
    EmitLn('EXS.L D0');
    EmitLn('DIVS D1,D0');
 end;
-
-
-{---------------------------------------------------------------}
+```
+```pascal
 { Parse and Translate a Math Term }
 
 procedure Term;
@@ -803,8 +793,8 @@ begin
    end;
 end;
 
-
-{--------------------------------------------------------------}
+```
+```pascal
 { Recognize and Translate an Add }
 
 procedure Add;
@@ -814,8 +804,8 @@ begin
    EmitLn('ADD (SP)+,D0');
 end;
 
-
-{-------------------------------------------------------------}
+```
+```pascal
 { Recognize and Translate a Subtract }
 
 procedure Subtract;
@@ -826,8 +816,8 @@ begin
    EmitLn('NEG D0');
 end;
 
-
-{---------------------------------------------------------------}
+```
+```pascal
 { Parse and Translate an Expression }
 
 procedure Expression;
@@ -844,9 +834,8 @@ begin
       end;
    end;
 end;
-
-
-{--------------------------------------------------------------}
+```
+```pascal
 { Parse and Translate an Assignment Statement }
 
 procedure Assignment;
@@ -859,8 +848,8 @@ begin
    EmitLn('MOVE D0,(A0)')
 end;
 
-
-{--------------------------------------------------------------}
+```
+```pascal
 { Initialize }
                              
 procedure Init;
@@ -868,9 +857,8 @@ begin
    GetChar;
    SkipWhite;
 end;
-
-
-{--------------------------------------------------------------}
+```
+```pascal
 { Main Program }
 
 begin
