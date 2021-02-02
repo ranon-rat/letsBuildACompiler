@@ -857,8 +857,8 @@ begin
    GetChar;
    SkipWhite;
 end;
-```
-```pascal
+
+{--------------------------------------------------------------}
 { Main Program }
 
 begin
