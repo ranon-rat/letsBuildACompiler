@@ -125,7 +125,7 @@ To a fresh copy of the cradle, add the following code, and insert
 a call to it from the main program:
 
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate A Program }
 
@@ -154,7 +154,7 @@ Anyhow, SK*DOS is a  particularly  easy OS to interface to.  Here
 is the code for Prolog and Epilog:
 
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Write the Prolog }
 
@@ -206,7 +206,7 @@ begin  by  processing  a block, in accordance with its PDL above.
 We can do this in two stages.  First, add the null procedure:
 
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a Pascal Block }
 
@@ -220,7 +220,7 @@ end;
 and modify Prog to read:
 
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate A Program }
 
@@ -244,7 +244,7 @@ can proceed to flesh out DoBlock.  That's done right from its BNF
 definition:
 
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a Pascal Block }
 
@@ -299,7 +299,7 @@ As  usual,  let's  let a single character represent each of these
 declaration types.  The new form of Declarations is:
 
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate the Declaration Part }
 
@@ -325,7 +325,7 @@ otherwise we'll end up with an infinite While loop.  At  the very
 least, each recognizer must  eat  the  character that invokes it.
 Insert the following procedures:
 
-```
+```pascal
 
 {--------------------------------------------------------------}
 { Process Label Statement }
@@ -403,7 +403,7 @@ Note that statements can  begin  with  any identifier except END.
 So the first stub form of procedure Statements is:
                               
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate the Statement Part }
 
@@ -548,7 +548,7 @@ you the  code corresponding to this top-level structure for Small
 C.
 
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate A Program }
 
@@ -613,7 +613,7 @@ declaration is being processed.
 To begin, key in the following version of the main program:
 
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Main Program }
 
@@ -649,7 +649,7 @@ global variable
 and change GetClass to do the following:
 
 
-```
+```pascal
 {--------------------------------------------------------------}
 {  Get a Storage Class Specifier }
 
@@ -675,7 +675,7 @@ We  can  do  a  similar  thing  for  types.   Enter the following
 procedure next:
 
 
-```
+```pascal
 {--------------------------------------------------------------}
 {  Get a Type Specifier }
 
@@ -714,7 +714,7 @@ can have an initializer.
 Insert the following version of TopDecl:
 
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Process a Top-Level Declaration }
 
@@ -736,7 +736,7 @@ along to the appropriate routine.)
 
 Finally, add the two procedures DoFunc and DoData:
 
-```
+```pascal
 
 {--------------------------------------------------------------}
 { Process a Function Definition }
