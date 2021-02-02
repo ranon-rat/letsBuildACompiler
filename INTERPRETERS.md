@@ -1,15 +1,13 @@
-                     LET'S BUILD A COMPILER!
+## LET'S BUILD A COMPILER!
 
-                                By
+By:Jack W. Crenshaw, Ph.D.
 
-                     Jack W. Crenshaw, Ph.D.
-
-                           24 July 1988
+24 July 1988
 
 
-                      Part IV: INTERPRETERS
+Part IV: INTERPRETERS
 
-
+```
 *****************************************************************
 *                                                               *
 *                        COPYRIGHT NOTICE                       *
@@ -17,9 +15,9 @@
 *   Copyright (C) 1988 Jack W. Crenshaw. All rights reserved.   *
 *                                                               *
 *****************************************************************
+```
 
-
-INTRODUCTION
+# INTRODUCTION
 
 In the first three installments of this series,  we've  looked at
 parsing and  compiling math expressions, and worked our way grad-
@@ -156,7 +154,7 @@ expect things as  well.    That's  the main reason for going over
 interpretation in this installment.
 
 
-THE INTERPRETER
+# THE INTERPRETER
 
 OK, now that you know WHY we're going into all this, let's do it.
 Just to give you practice, we're going to start over with  a bare
@@ -170,7 +168,7 @@ return an integer.    MAKE  A  COPY of the cradle (for goodness's
 sake, don't change the version  in  Cradle  itself!!)  and modify
 GetNum as follows:
 
-
+```pascal
 {--------------------------------------------------------------}
 { Get a Number }
 
@@ -181,11 +179,11 @@ begin
    GetChar;
 end;
 {--------------------------------------------------------------}
-
+```
 
 Now, write the following version of Expression:
 
-
+```pascal
 {---------------------------------------------------------------}
 { Parse and Translate an Expression }
 
@@ -194,13 +192,13 @@ begin
    Expression := GetNum;
 end;
 {--------------------------------------------------------------}
-
+```
 
 Finally, insert the statement
 
-
+```
    Writeln(Expression);
-
+```
 
 at the end of the main program.  Now compile and test.
 
@@ -212,7 +210,7 @@ anything else.  Shouldn't take you very long!
 OK, now let's extend this to include addops.    Change Expression
 to read:
 
-
+```pascal
 {---------------------------------------------------------------}
 { Parse and Translate an Expression }
 
@@ -238,7 +236,7 @@ begin
    Expression := Value;
 end;
 {--------------------------------------------------------------}
-
+```
 
 The structure of Expression, of  course,  parallels  what  we did
 before,  so  we  shouldn't have too much  trouble  debugging  it.
@@ -261,7 +259,7 @@ call to Term, and then enter the following form for Term:
 
 
 
-
+```pascal
 {---------------------------------------------------------------}
 { Parse and Translate a Math Term }
 
@@ -284,6 +282,7 @@ begin
    Term := Value;
 end;
 {--------------------------------------------------------------}
+```
 
 Now, try it out.    Don't forget two things: first, we're dealing
 with integer division, so, for example, 1/3 should come out zero.
@@ -294,7 +293,7 @@ That seems like a silly restriction at this point, since  we have
 already  seen how easily function GetNum can  be  extended.    So
 let's go ahead and fix it right now.  The new version is
 
-
+```pascal
 {--------------------------------------------------------------}
 { Get a Number }
 
@@ -310,7 +309,7 @@ begin
    GetNum := Value;
 end;
 {--------------------------------------------------------------}
-
+```
 
 If you've compiled and  tested  this  version of the interpreter,
 the  next  step  is to install function Factor, complete with pa-
@@ -321,7 +320,7 @@ following version of Factor:
 
 
 
-
+```pascal
 {---------------------------------------------------------------}
 { Parse and Translate a Math Factor }
 
@@ -338,12 +337,12 @@ begin
        Factor := GetNum;
 end;
 {---------------------------------------------------------------}
-
+```
 That was pretty easy, huh?  We're rapidly closing in on  a useful
 interpreter.
 
 
-A LITTLE PHILOSOPHY
+# A LITTLE PHILOSOPHY
 
 Before going any further, there's something I'd like  to  call to
 your attention.  It's a concept that we've been making use  of in
@@ -445,7 +444,7 @@ We also need to initialize the array, so add this procedure:
 
 
 
-
+```pascal
 {---------------------------------------------------------------}
 { Initialize the Variable Area }
 
@@ -456,7 +455,7 @@ begin
       Table[i] := 0;
 end;
 {---------------------------------------------------------------}
-
+```
 
 You must also insert a call to InitTable, in procedure Init.
 DON'T FORGET to do that, or the results may surprise you!
@@ -466,7 +465,7 @@ use it.  Since we don't have a way (so far) to set the variables,
 Factor  will always return zero values for  them,  but  let's  go
 ahead and extend it anyway.  Here's the new version:
 
-
+```pascal
 {---------------------------------------------------------------}
 { Parse and Translate a Math Factor }
 
@@ -485,7 +484,7 @@ begin
        Factor := GetNum;
 end;
 {---------------------------------------------------------------}
-
+```
 
 As always, compile and test this version of the  program.    Even
 though all the variables are now zeros, at least we can correctly
@@ -499,7 +498,7 @@ multiple statements.
 
 The assignment statement parallels what we did before:
 
-
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate an Assignment Statement }
                              
@@ -513,7 +512,7 @@ begin
    Table[Name] := Expression;
 end;
 {--------------------------------------------------------------}
-
+```
 
 To test this,  I  added  a  temporary write statement in the main
 program,  to  print out the value of A.  Then I  tested  it  with
@@ -550,7 +549,7 @@ and/or  LF won't look so great.  What we need is a special proce-
 dure for this, which we'll no doubt be using over and over.  Here
 it is:
 
-
+```pascal
 {--------------------------------------------------------------}
 { Recognize and Skip Over a Newline }
 
@@ -563,12 +562,12 @@ begin
    end;
 end;
 {--------------------------------------------------------------}
-
+```
 
 Insert this procedure at any convenient spot ... I put  mine just
 after Match.  Now, rewrite the main program to look like this:
 
-
+```pascal
 {--------------------------------------------------------------}
 { Main Program }
 
@@ -580,7 +579,7 @@ begin
    until Look = '.';
 end.
 {--------------------------------------------------------------}
-
+```
 
 Note that the  test for a CR is now gone, and that there are also
 no  error tests within NewLine itself.   That's  OK,  though  ...
@@ -596,7 +595,7 @@ Since we're  sticking to single-character tokens, I'll use '?' to
 stand for a read statement, and  '!'  for a write, with the char-
 acter  immediately  following  them  to  be used as  a  one-token
 "parameter list."  Here are the routines:
-
+```pascal
 {--------------------------------------------------------------}
 { Input Routine }
 
@@ -616,7 +615,7 @@ begin
    WriteLn(Table[GetName]);
 end;
 {--------------------------------------------------------------}
-
+```
 They aren't very fancy, I admit ... no prompt character on input,
 for example ... but they get the job done.
 
@@ -624,7 +623,7 @@ The corresponding changes in  the  main  program are shown below.
 Note that we use the usual  trick  of a case statement based upon
 the current lookahead character, to decide what to do.
 
-
+```pascal
 {--------------------------------------------------------------}
 { Main Program }
 
@@ -640,7 +639,7 @@ begin
    until Look = '.';
 end.
 {--------------------------------------------------------------}
-
+```
 
 You have now completed a  real, working interpreter.  It's pretty
 sparse, but it works just like the "big boys."  It includes three
@@ -659,7 +658,7 @@ taken  care  of, as we did in the last session.   This  time,  if
 you'd like to play around with these extensions, be my  guest ...
 they're  "left as an exercise for the student."    See  you  next
 time.
-
+```
 *****************************************************************
 *                                                               *
 *                        COPYRIGHT NOTICE                       *
@@ -667,5 +666,5 @@ time.
 *   Copyright (C) 1988 Jack W. Crenshaw. All rights reserved.   *
 *                                                               *
 *****************************************************************
+```
 
- 1 --
