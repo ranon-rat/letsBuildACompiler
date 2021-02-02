@@ -556,7 +556,7 @@ Since we've made quite  a  few  changes  during this session, I'm
 reproducing the entire parser below:
 
 
-
+```pascal
 program parse;
 
 {--------------------------------------------------------------}
