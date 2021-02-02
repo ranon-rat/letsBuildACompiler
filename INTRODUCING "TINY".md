@@ -152,7 +152,7 @@ Pascal.
 
 Given  the  BNF  above, let's write a parser that just recognizes
 the brackets:
-```
+```pascal
 
 {--------------------------------------------------------------}
 {  Parse and Translate a Program }
@@ -171,7 +171,7 @@ end;
 The procedure Header just emits  the startup code required by the
 assembler:
                               
-```
+```pascal
 {--------------------------------------------------------------}
 { Write Header Info }
 
@@ -185,7 +185,7 @@ end;
 The procedures Prolog and  Epilog  emit  the code for identifying
 the main program, and for returning to the OS:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Write the Prolog }
 
@@ -209,7 +209,7 @@ end;
 The  main program just calls Prog, and then  looks  for  a  clean
 ending:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Main Program }
 
@@ -281,7 +281,7 @@ add or change to your liking, if the language is your own design.
 
 To parse this definition of a main block,  change  procedure Prog
 to read:
-```
+```pascal
 {--------------------------------------------------------------}
 {  Parse and Translate a Program }
 
@@ -297,7 +297,7 @@ end;
 
 and add the new procedure:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a Main Program }
 
@@ -309,7 +309,7 @@ begin
    Epilog;
 end;
 {--------------------------------------------------------------}
-``````
+```
 
 Now, the only legal program is:
 
@@ -344,7 +344,7 @@ to  declare the type.  Later on, for full KISS, we can easily add
 a type description.
 
 The procedure Prog becomes:
-```
+```pascal
 
 {--------------------------------------------------------------}
 {  Parse and Translate a Program }
@@ -362,7 +362,7 @@ end;
 ```
 Now, add the two new procedures:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Process a Data Declaration }
 
@@ -406,7 +406,7 @@ time we actually produced some code.
 With  a  little  extra  code,  that's  an  easy  thing to do from
 procedure Decl.  Modify it as follows:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a Data Declaration }
 
@@ -421,7 +421,7 @@ end;
 ```
 The procedure Alloc just  issues  a  command  to the assembler to
 allocate storage:
-```
+```pascal
 
 {--------------------------------------------------------------}
 { Allocate Storage for a Variable }
@@ -461,7 +461,7 @@ The BNF for <var-list> is
 
 Adding this syntax to Decl gives this new version:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a Data Declaration }
 
@@ -616,7 +616,7 @@ program:
 
 
 and insert the following function:
-```
+```pascal
 
 {--------------------------------------------------------------}
 { Look for Symbol in Table }
@@ -681,7 +681,7 @@ assignment statements:
 Let's start things off by adding  a  parser for the block.  We'll
 begin with a stub for the assignment statement:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate an Assignment Statement }
 
@@ -702,7 +702,7 @@ end;
 {--------------------------------------------------------------}
 ```
 Modify procedure Main to call Block as shown below:
-```
+```pascal
 
 {--------------------------------------------------------------}
 { Parse and Translate a Main Program }
@@ -740,7 +740,7 @@ CPU.  The answer, of course, is yes.
 To  accomplish  this,  insert  the  following  "code  generation"
 routines:
 
-```
+```pascal
 {---------------------------------------------------------------}
 { Clear the Primary Register }
 
@@ -850,7 +850,7 @@ Note that both LoadVar  and  Store check the symbol table to make
 sure that the variable is defined.  The  error  handler Undefined
 simply calls Abort:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Report an Undefined Identifier }
 
@@ -901,7 +901,7 @@ That's a first for this series.
 
 Anyhow, the following code implements the BNF:
 
-```
+```pascal
 {---------------------------------------------------------------}
 { Parse and Translate a Math Factor }
 
@@ -1085,7 +1085,7 @@ I've added an instruction to sign-extend the low byte.
 
 To begin, we're going to need some more recognizers:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Recognize a Boolean Orop }
 
@@ -1104,9 +1104,9 @@ begin
 end;
 {--------------------------------------------------------------}
 
-
+````
 Also, we're going to need some more code generation routines:
-
+```
 
 {---------------------------------------------------------------}
 { Complement the Primary Register }
@@ -1241,7 +1241,7 @@ scanning as well.
 OK, given that we're  all  satisfied  with  the syntax above, the
 corresponding code is shown below:
 
-```
+```pascal
 {---------------------------------------------------------------}
 { Recognize and Translate a Relational "Equals" }
 
@@ -1464,7 +1464,7 @@ Use your best judgment as to which way to go.
 OK, with that bit of explanation let's proceed.  As  usual, we're
 going to need some new  code generation routines.  These generate
 the code for conditional and unconditional branches:
-```
+```pascal
 {---------------------------------------------------------------}
 { Branch Unconditional  }
 
@@ -1488,7 +1488,7 @@ end;
 Except for the encapsulation of  the code generation, the code to
 parse the control constructs is the same as you've seen before:
 
-```
+```pascal
 {---------------------------------------------------------------}
 { Recognize and Translate an IF Construct }
 
@@ -1552,7 +1552,7 @@ where
 
 The corresponding code is:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a Block of Statements }
 
@@ -1600,7 +1600,7 @@ feel safer taking things one step at a time.
 
 Insert the new procedure:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Skip Over an End-of-Line }
 
@@ -1640,7 +1640,7 @@ it will indeed handle white space and newlines.
 If it does, then we're  ready to deal with multi-character tokens
 and keywords.   To begin, add the additional declarations (copied
 almost verbatim from Part VII):
-```
+```pascal
 
 {--------------------------------------------------------------}
 { Type Declarations }
@@ -1721,7 +1721,7 @@ end;
 Now, we have to make a  fairly  large number of subtle changes to
 the remaining procedures.  First,  we  must  change  the function
 GetName to a procedure, again as we did in Part VII:
-```
+```pascal
 
 {--------------------------------------------------------------}
 { Get an Identifier }
@@ -1746,7 +1746,7 @@ Value.
 Next, we have to change every reference to GetName to reflect its
 new form. These occur in Factor, Assignment, and Decl:
 
-```
+```pascal
 {---------------------------------------------------------------}
 { Parse and Translate a Math Factor }
 
@@ -1809,7 +1809,7 @@ Mostly, this  involves  deleting  calls  to  Match,  occasionally
 replacing calls to  Match  by calls to MatchString, and Replacing
 calls  to  NewLine  by  calls  to  Scan.    Here are the affected
 routines:
-```
+```pascal
 {---------------------------------------------------------------}
 { Recognize and Translate an IF Construct }
 
@@ -1979,7 +1979,7 @@ a phony one to get Lookup to work.  A SymTab  would  take  up too
 much RAM space, and so one is never actually allocated.)
 
 Next, we need to replace InTable:
-```
+```pascal
 
 {--------------------------------------------------------------}
 { Look for Symbol in Table }
@@ -1994,7 +1994,7 @@ end;
 We also need a new procedure, AddEntry, that adds a new  entry to
 the table:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Add a New Entry to Symbol Table }
 
@@ -2011,7 +2011,7 @@ end;
 ```
 This procedure is called by Alloc:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Allocate Storage for a Variable }
 
@@ -2033,7 +2033,7 @@ Assignment, and Decl (just change Value[1] to Value).
 One  last  thing:  change  procedure  Init to clear the array  as
 shown:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Initialize }
 
@@ -2077,7 +2077,7 @@ The changes required affect only the code generation routines and
 procedures Relation and friends.   First, we're going to need two
 more code generation routines:
 
-```
+```pascal
 {---------------------------------------------------------------}
 { Set D0 If Compare was <= }
 
@@ -2101,7 +2101,7 @@ end;
 
 Then, modify the relation parsing routines as shown below:
 
-```
+```pascal
 {---------------------------------------------------------------}
 { Recognize and Translate a Relational "Less Than or Equal" }
 
@@ -2195,7 +2195,7 @@ As  usual,  for  this we need some more code generation routines.
 These turn out  to be the easiest of all, because all we do is to
 call library procedures to do the work:
 
-```
+```pascal
 {---------------------------------------------------------------}
 { Read Variable to Primary Register }
 
@@ -2234,7 +2234,7 @@ But that is really separate from compiler design, so for now I'll
 just assume that a library call TINYLIB.LIB exists.  Since we now
 need  it  loaded,  we need to add a statement to  include  it  in
 procedure Header:
-```
+```pascal
 
 {--------------------------------------------------------------}
 { Write Header Info }
@@ -2251,7 +2251,7 @@ That takes care of that part.  Now, we also need to recognize the
 read  and  write  commands.  We can do this by  adding  two  more
 keywords to our list:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Definition of Keywords and Token Types }
 
@@ -2273,7 +2273,7 @@ the 'w' of WHILE.)
 Next, we need procedures for processing the  read/write statement
 and its argument list:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Process a Read Statement }
 procedure DoRead;
@@ -2310,7 +2310,7 @@ end;
 ```
 Finally,  we  must  expand  procedure  Block  to  handle the  new
 statement types:
-```
+```pascal
 
 {--------------------------------------------------------------}
 { Parse and Translate a Block of Statements }
@@ -2362,7 +2362,7 @@ See you then.
 
 For references purposes, the complete listing of TINY Version 1.0
 is shown below:
-```
+```pascal
 
 {--------------------------------------------------------------}
 program Tiny10;
