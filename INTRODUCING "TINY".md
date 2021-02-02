@@ -499,7 +499,7 @@ becomes:
      <var> ::= <ident> [ = <integer> ]
 
 Change Alloc as follows:
-```
+```pascal
 
 {--------------------------------------------------------------}
 { Allocate Storage for a Variable }
@@ -533,7 +533,7 @@ since WriteLn will handle either type.  But there's no  reason to
 limit ourselves  to  single-digit  values  here,  so  the correct
 version to use is the one that returns an integer.  Here it is:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Get a Number }
 
@@ -555,7 +555,7 @@ expressions in the data field of the initializer, or at  the very
 least  for  negative  values.  For  now,  let's  just  allow  for
 negative values by changing the code for Alloc as follows:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Allocate Storage for a Variable }
 
@@ -631,20 +631,20 @@ end;
 We  also  need  to initialize the  table  to  all  blanks.    The
 following lines in Init will do the job:
 
-
+```pascal
 var i: char;
 begin
    for i := 'A' to 'Z' do
       ST[i] := ' ';
    ...
-
+```
 
 Finally,  insert  the  following two lines at  the  beginning  of
 Alloc:
 
 
-   if InTable(N) then Abort('Duplicate Variable Name ' + N);
-   ST[N] := 'v';
+        if InTable(N) then Abort('Duplicate Variable Name ' + N);
+        ST[N] := 'v';
 
 
 That  should  do  it.  The  compiler  will  now  catch  duplicate
@@ -1106,7 +1106,7 @@ end;
 
 ````
 Also, we're going to need some more code generation routines:
-```
+```pascal
 
 {---------------------------------------------------------------}
 { Complement the Primary Register }
