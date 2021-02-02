@@ -6,6 +6,7 @@ By:Jack W. Crenshaw, Ph.D.
 
 # Part VII: LEXICAL SCANNING
 
+
 ```
 *****************************************************************
 *                                                               *
@@ -224,7 +225,7 @@ We  have already dealt with similar  items  in  Installment  III.
 Let's begin (as usual) with a bare cradle.  Not  surprisingly, we
 are going to need a new recognizer:
                               
-```
+```pascal
 {--------------------------------------------------------------}
 { Recognize an Alphanumeric Character }
 
@@ -238,7 +239,7 @@ end;
 Using this let's write the following two routines, which are very
 similar to those we've used before:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Get an Identifier }
 
@@ -300,7 +301,7 @@ at the end of both GetName and GetNum.
 
 Now, let's define the new procedure:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Lexical Scanner }
 
@@ -321,7 +322,7 @@ end;
 ```
 We can call this from the new main program:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Main Program }
 
@@ -462,7 +463,7 @@ it's not in your current version of the cradle, put it there now.
 
 Also, modify the main program to read:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Main Program }
 
@@ -534,7 +535,7 @@ them if necessary.
 Needless to say, we  can  handle operators very much the same way
 as the other tokens.  Let's start with a recognizer:
                              
-```
+```pascal
 {--------------------------------------------------------------}
 { Recognize Any Operator }
 
@@ -554,7 +555,7 @@ appear in multi-character operators.  (For specific languages, of
 course, the list can always be edited.)
 
 Now, let's modify Scan to read:
-```
+```pascal
 
 {--------------------------------------------------------------}
 { Lexical Scanner }
@@ -599,7 +600,7 @@ I think this is inexcusable.  It's too  easy  to  write  a parser
 that will handle  both  spaces  and  commas  in  a  flexible way.
 Consider the following procedure:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Skip Over a Comma }
 
@@ -713,7 +714,7 @@ handled with its C-like extensions for pointers.
 
 First, modify your declarations like this:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Type Declarations  }
 
@@ -731,7 +732,7 @@ allocated by the declaration itself,  and the number need only be
 
 Now, just beneath those declarations, add the following:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Definition of Keywords and Token Types }
 
@@ -743,7 +744,7 @@ const KWlist: array [1..4] of Symbol =
 
 Next, insert the following new function:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Table Lookup }
 
@@ -768,7 +769,7 @@ end;
 ```
 To test it,  you  can  temporarily  change  the  main  program as
 follows:
-```
+```pascal
 
 {--------------------------------------------------------------}
 { Main Program }
@@ -809,8 +810,7 @@ Now, add the two variable declarations:
 
 
 Modify the scanner to read:
-
-```
+```pascal
 {--------------------------------------------------------------}
 { Lexical Scanner }
 
@@ -849,8 +849,7 @@ end;
 
 
 Finally, modify the main program to read:
-
-```
+```pascal
 {--------------------------------------------------------------}
 { Main Program }
 
@@ -884,8 +883,7 @@ GetNum, GetOp, and Scan be  procedures  working  with  the global
 variables Token and Value, thereby eliminating the  local copies.
 It  also seems a little cleaner to move  the  table  lookup  into
 GetName.  The new form for the four procedures is, then:
-
-```
+```pascal
 {--------------------------------------------------------------}
 { Get an Identifier }
 
@@ -1003,8 +1001,7 @@ Next, to replace SymType, add the following constant string:
 
 
 Lastly, modify Scan and its relatives as follows:
-
-```
+```pascal
 {--------------------------------------------------------------}
 { Get an Identifier }
 
@@ -1180,8 +1177,7 @@ single-character tokens, exist  already in our previous programs.
 I built it by judicious copying of these files,  but  I  wouldn't
 dare try to lead you through that process.  Instead, to avoid any
 confusion, the whole program is shown below:
-```
-
+```pascal
 {--------------------------------------------------------------}
 program KISS;
 
