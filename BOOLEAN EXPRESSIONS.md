@@ -111,9 +111,10 @@ once in a given term. So an expression like
                     a * -b
 
 or worse yet,
-```
-a - -b
-```
+
+                    a - -b
+
+
 
 is not allowed.  In Boolean algebra, though, the expression
 
@@ -440,7 +441,7 @@ since we are keeping to single-character tokens here, I'll encode
 those with '|' and  '~'.  The  next  version of BoolExpression is
 almost a direct copy of the arithmetic procedure Expression:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Recognize and Translate a Boolean OR }
 
@@ -484,7 +485,7 @@ end;
 ```
 Note the new recognizer  IsOrOp,  which is also a copy, this time
 of IsAddOp:
-```
+```pascal
 
 {--------------------------------------------------------------}
 { Recognize a Boolean Orop }
@@ -510,8 +511,7 @@ following new version of BoolTerm.  Note that is is  much simpler
 than  the  numeric  version,  since  there  is  no equivalent  of
 division.
 
-
-```
+```pascal
 {---------------------------------------------------------------}
 { Parse and Translate a Boolean Term }
 
@@ -532,7 +532,7 @@ Now,  we're  almost  home.  We are  translating  complex  Boolean
 expressions, although only for constant values.  The next step is
 to allow for the NOT.  Write the following procedure:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a Boolean Factor with NOT }
 
@@ -560,7 +560,7 @@ have  to do that for the Boolean  factor,  because  those  little
 items get taken care of by the next step.  It  takes  just  a one
 line addition to BoolFactor to take care of relations:
 
-```
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a Boolean Factor }
 
@@ -590,8 +590,7 @@ feel comfortable, though,  adding  any  more  code  without first
 checking out what we already have.  So for now let's just write a
 dummy  version  of  Relation  that  does nothing except  eat  the
 current character, and write a little message:
-
-```
+```pascal
 {---------------------------------------------------------------}
 { Parse and Translate a Relation }
 
@@ -621,8 +620,7 @@ new Boolean function to  recognize  it.    That function is shown
 below.  Because of the single-character limitation,  I'm sticking
 to the four operators  that  can be encoded with such a character
 (the "not equals" is encoded by '#').
-
-```
+```pascal
 {--------------------------------------------------------------}
 { Recognize a Relop }
 
@@ -692,8 +690,7 @@ anything.
 
 In  any  case,  we're now ready to look at the code for Relation.
 It's shown below with its companion procedures:
-
-```
+```pascal
 {---------------------------------------------------------------}
 { Recognize and Translate a Relational "Equals" }
 
@@ -730,8 +727,7 @@ begin
    EmitLn('CMP (SP)+,D0');
    EmitLn('SGE D0');
 end;
-```
-```
+
 {---------------------------------------------------------------}
 { Recognize and Translate a Relational "Greater Than" }
 
@@ -776,7 +772,7 @@ so  you  may  prefer  to  hold  off  on  that  until you're  sure
 
 everything is working.
 
-```
+```pascal
 {---------------------------------------------------------------}
 { Parse and Translate an Identifier }
 
