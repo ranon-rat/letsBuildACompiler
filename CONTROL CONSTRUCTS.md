@@ -241,16 +241,16 @@ Notice that we've added  a  new  global  variable, LCount, so you
 need to change the VAR declarations at the top of the  program to
 look like this:
 
-
+```pascal
 var Look  : char;              { Lookahead Character }
     Lcount: integer;           { Label Counter }
-
+```
 
 Also, add the following extra initialization to Init:
 
-
-   LCount := 0;
-
+```pascal
+LCount := 0;
+```
 (DON'T forget that, or your labels can look really strange!)
 
 
@@ -312,7 +312,7 @@ will  be  BEQ's  ...  we'll  be branching AROUND the code  that's
 supposed to be executed when the condition is true.
 
 
-THE IF STATEMENT
+# THE IF STATEMENT
 
 With that bit of explanation out of the way, we're  finally ready
 to begin coding the IF-statement parser.  In  fact,  we've almost
@@ -323,7 +323,7 @@ also, for now, skip completely  the character for the branch con-
 dition, which we still have to define.
 
 The code for DoIf is:
-
+```pascal
 {--------------------------------------------------------------}
 { Recognize and Translate an IF Construct }
 
@@ -342,12 +342,12 @@ begin
    PostLabel(L);
 end;
 {--------------------------------------------------------------}
-
+```
 
 Add this routine to your program, and change  Block  to reference
 it as follows:
 
-
+```pascal
 {--------------------------------------------------------------}
 { Recognize and Translate a Statement Block }
 
@@ -361,7 +361,7 @@ begin
    end;
 end;
 {--------------------------------------------------------------}
-
+```
 
 Notice the reference to procedure Condition.    Eventually, we'll
 write a routine that  can  parse  and  translate any Boolean con-
@@ -369,7 +369,7 @@ dition we care to give it.  But  that's  a  whole  installment by
 itself (the next one, in fact).    For  now, let's just make it a
 dummy that emits some text.  Write the following routine:
 
-
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a Boolean Condition }
 { This version is a dummy }
@@ -380,6 +380,7 @@ begin
 end;
 {--------------------------------------------------------------}
 
+```
 
 Insert this procedure in your program just before DoIf.   Now run
 the program.  Try a string like
@@ -437,7 +438,7 @@ as to how to handle both situations.   The  code  below  does it.
 (Note that I  use  an  'l'  for  the ELSE, since 'e' is otherwise
 occupied):
 
-
+```pascal
 {--------------------------------------------------------------}
 { Recognize and Translate an IF Construct }
 
@@ -461,7 +462,7 @@ begin
    PostLabel(L2);
 end;
 {--------------------------------------------------------------}
-
+```
 
 There you have it.  A complete IF parser/translator, in  19 lines
 of code.
@@ -480,7 +481,7 @@ badly formed statements.   Just  remember that 'e' is not a legal
 "other" statement.
 
 
-THE WHILE STATEMENT
+# THE WHILE STATEMENT
 
 The next type of statement should be easy, since we  already have
 the process  down  pat.    The  syntax  I've chosen for the WHILE
@@ -527,7 +528,7 @@ needed at each point.
 
 The code follows immediately from the syntax:
 
-
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a WHILE Statement }
 
@@ -546,12 +547,12 @@ begin
    PostLabel(L2);
 end;
 {--------------------------------------------------------------}
-
+```
 
 Since  we've  got a new statement, we have to add a  call  to  it
 within procedure Block:
 
-
+```pascal
 {--------------------------------------------------------------}
 { Recognize and Translate a Statement Block }
 
@@ -566,7 +567,7 @@ begin
    end;
 end;
 {--------------------------------------------------------------}
-
+```
 
 No other changes are necessary.
 
@@ -587,7 +588,7 @@ see that you  can  add  new  constructs  about as fast as you can
 dream them up.
 
 
-THE LOOP STATEMENT
+# THE LOOP STATEMENT
 
 We could stop right here, and  have  a language that works.  It's
 been  shown  many  times that a high-order language with only two
@@ -619,7 +620,7 @@ The corresponding code is shown below.  Since  I've  already used
 'l'  for  the  ELSE, I've used  the  last  letter,  'p',  as  the
 "keyword" this time.
 
-
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a LOOP Statement }
 
@@ -635,12 +636,9 @@ begin
 end;
 {--------------------------------------------------------------}
                              
-
+```
 When you insert this routine, don't forget to add a line in Block
 to call it.
-
-
-
 
 REPEAT-UNTIL
 
@@ -663,7 +661,7 @@ and the syntax-directed translation is:
 
 As usual, the code falls out pretty easily:
 
-
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a REPEAT Statement }
 
@@ -679,7 +677,7 @@ begin
    EmitLn('BEQ ' + L);
 end;
 {--------------------------------------------------------------}
-
+```
 
 As  before, we have to add the call  to  DoRepeat  within  Block.
 This time, there's a difference, though.  I decided  to  use  'r'
@@ -689,7 +687,7 @@ the while-test.  These  are  the  characters  that signal an exit
 from the current  block  ... the "follow" characters, in compiler
 jargon.
 
-
+```pascal
 {--------------------------------------------------------------}
 { Recognize and Translate a Statement Block }
 
@@ -707,7 +705,7 @@ begin
 end;
 {--------------------------------------------------------------}
 
-
+```
 THE FOR LOOP
 
 The FOR loop  is a very handy one to have around, but it's a bear
@@ -780,7 +778,7 @@ better, please let me know.
 Still, the parser  routine  is  pretty  easy now that we have the
 code:
 
-
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a FOR Statement }
 
@@ -814,11 +812,11 @@ begin
 end;
 {--------------------------------------------------------------}
 
-
+```
 Since we don't have  expressions  in this parser, I used the same
 trick as for Condition, and wrote the routine
 
-
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate an Expression }
 { This version is a dummy }
@@ -828,7 +826,7 @@ begin
    EmitLn('<expr>');
 end;
 {--------------------------------------------------------------}
-
+```
 
 Give it a try.  Once again,  don't  forget  to  add  the  call in
 Block.    Since  we don't have any input for the dummy version of
@@ -840,7 +838,7 @@ Well, it DOES generate a lot of code, doesn't it?    But at least
 it's the RIGHT code.
 
 
-THE DO STATEMENT
+# THE DO STATEMENT
 
 All this made me wish for a simpler version of the FOR loop.  The
 reason for all the code  above  is  the  need  to  have  the loop
@@ -868,7 +866,7 @@ The syntax and its translation is:
 That's quite a bit simpler!  The loop will execute  <expr> times.
 Here's the code:
 
-
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a DO Statement }
 
@@ -886,13 +884,13 @@ begin
    EmitLn('DBRA D0,' + L);
 end;
 {--------------------------------------------------------------}
-
+```
 
 I think you'll have to agree, that's a whole lot simpler than the
 classical FOR.  Still, each construct has its place.
 
 
-THE BREAK STATEMENT
+# THE BREAK STATEMENT
 
 Earlier I promised you a BREAK statement to accompany LOOP.  This
 is  one  I'm sort of proud of.  On the face of it a  BREAK  seems
@@ -935,7 +933,7 @@ whatever label is above it and passes its own exit label along.
 All  this  is easier to show you than it is to  describe.    I'll
 demonstrate with the easiest loop, which is LOOP:
 
-
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a LOOP Statement }
 
@@ -952,7 +950,7 @@ begin
    PostLabel(L2);
 end;
 {--------------------------------------------------------------}
-
+```
 
 Notice that DoLoop now has TWO labels, not just one.   The second
 is to give the BREAK instruction a target to jump  to.   If there
@@ -962,7 +960,7 @@ up things a bit, but there's no harm done.
 Note also that Block now has a parameter, which  for  loops  will
 always be the exit address.  The new version of Block is:
 
-
+```pascal
 {--------------------------------------------------------------}
 { Recognize and Translate a Statement Block }
 
@@ -982,14 +980,14 @@ begin
    end;
 end;
 {--------------------------------------------------------------}
-
+```
 
 Again,  notice  that  all Block does with the label is to pass it
 into DoIf and  DoBreak.    The  loop  constructs  don't  need it,
 because they are going to pass their own label anyway.
 
 The new version of DoIf is:
-
+```pascal
 {--------------------------------------------------------------}
 { Recognize and Translate an IF Construct }
 
@@ -1016,7 +1014,7 @@ begin
    PostLabel(L2);
 end;
 {--------------------------------------------------------------}
-
+```
 
 Here,  the  only  thing  that  changes  is  the addition  of  the
 parameter to procedure Block.  An IF statement doesn't change the
@@ -1029,7 +1027,7 @@ pass it a label.  An  attempt  to  exit the outermost block is an
 error, so DoProgram  passes  a  null  label  which  is  caught by
 DoBreak:
 
-
+```pascal
 {--------------------------------------------------------------}
 { Recognize and Translate a BREAK }
 
@@ -1053,7 +1051,7 @@ begin
    EmitLn('END')
 end;
 {--------------------------------------------------------------}
-
+```
 
 That  ALMOST takes care of everything.  Give it a try, see if you
 can "break" it <pun>.  Careful, though.  By this time  we've used
@@ -1071,7 +1069,7 @@ that was one  of  our  smaller  routines, but it can't be helped.
 Here's a version that doesn't have the problem:
 
 
-
+```pascal
 
 {--------------------------------------------------------------}
 { Parse and Translate a DO Statement }
@@ -1094,13 +1092,13 @@ begin
    EmitLn('ADDQ #2,SP');
 end;
 {--------------------------------------------------------------}
-
+```
 
 The  two  extra  instructions,  the  SUBQ and ADDQ, take care  of
 leaving the stack in the right shape.
                              
 
-CONCLUSION
+# CONCLUSION
 
 At this point we have created a number of control  constructs ...
 a richer set, really, than that provided by almost any other pro-
@@ -1123,7 +1121,7 @@ session:
 
 
 
-
+```pascal
 {--------------------------------------------------------------}
 program Branch;
 
@@ -1149,7 +1147,8 @@ begin
    Read(Look);
 end;
 
-
+```
+```pascal
 {--------------------------------------------------------------}
 { Report an Error }
 
@@ -1159,7 +1158,8 @@ begin
    WriteLn(^G, 'Error: ', s, '.');
 end;
 
-
+```
+```pascal
 {--------------------------------------------------------------}
 { Report Error and Halt }
 
@@ -1169,7 +1169,8 @@ begin
    Halt;
 end;
 
-
+```
+```pascal
 {--------------------------------------------------------------}
 { Report What Was Expected }
 
@@ -1177,7 +1178,7 @@ procedure Expected(s: string);
 begin
    Abort(s + ' Expected');
 end;
-
+```pascal
 {--------------------------------------------------------------}
 { Match a Specific Input Character }
 
@@ -1186,9 +1187,10 @@ begin
    if Look = x then GetChar
    else Expected('''' + x + '''');
 end;
-
-
+```
+```pascal
 {--------------------------------------------------------------}
+
 { Recognize an Alpha Character }
 
 function IsAlpha(c: char): boolean;
@@ -1196,7 +1198,8 @@ begin
    IsAlpha := UpCase(c) in ['A'..'Z'];
 end;
 
-
+```
+```pascal
 {--------------------------------------------------------------}
 { Recognize a Decimal Digit }
 
@@ -1204,8 +1207,8 @@ function IsDigit(c: char): boolean;
 begin
    IsDigit := c in ['0'..'9'];
 end;
-                             
-
+```                    
+```pascal
 {--------------------------------------------------------------}
 { Recognize an Addop }
 
@@ -1214,7 +1217,8 @@ begin
    IsAddop := c in ['+', '-'];
 end;
 
-
+```
+```pascal
 {--------------------------------------------------------------}
 { Recognize White Space }
 
@@ -1223,7 +1227,8 @@ begin
    IsWhite := c in [' ', TAB];
 end;
 
-
+```
+```pascal
 {--------------------------------------------------------------}
 { Skip Over Leading White Space }
 
@@ -1232,7 +1237,8 @@ begin
    while IsWhite(Look) do
       GetChar;
 end;
-
+```
+```pascal
 
 {--------------------------------------------------------------}
 { Get an Identifier }
@@ -1246,7 +1252,8 @@ end;
 
 
 
-
+```
+```pascal
 {--------------------------------------------------------------}
 { Get a Number }
 
@@ -1257,7 +1264,8 @@ begin
    GetChar;
 end;
 
-
+```
+```pascal
 {--------------------------------------------------------------}
 { Generate a Unique Label }
 
@@ -1269,7 +1277,8 @@ begin
    Inc(LCount);
 end;
 
-
+```
+```pascal
 {--------------------------------------------------------------}
 { Post a Label To Output }
 
@@ -1278,7 +1287,8 @@ begin
    WriteLn(L, ':');
 end;
 
-
+```
+```pascal
 {--------------------------------------------------------------}
 { Output a String with Tab }
 
@@ -1287,7 +1297,8 @@ begin
    Write(TAB, s);
 end;
 
-
+```
+```pascal
 {--------------------------------------------------------------}
 
 { Output a String with Tab and CRLF }
@@ -1298,7 +1309,8 @@ begin
    WriteLn;
 end;
 
-
+```
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a Boolean Condition }
 
@@ -1309,7 +1321,8 @@ end;
 
                              
 
-
+```
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a Math Expression }
 
@@ -1317,7 +1330,8 @@ procedure Expression;
 begin
    EmitLn('<expr>');
 end;
-
+```
+```pascal
 
 {--------------------------------------------------------------}
 { Recognize and Translate an IF Construct }
@@ -1344,8 +1358,8 @@ begin
    Match('e');
    PostLabel(L2);
 end;
-
-
+```
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a WHILE Statement }
 
@@ -1364,7 +1378,8 @@ begin
    PostLabel(L2);
 end;
                              
-
+```
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a LOOP Statement }
 
@@ -1382,6 +1397,8 @@ begin
 end;
 
 
+```
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a REPEAT Statement }
 
@@ -1398,8 +1415,8 @@ begin
    EmitLn('BEQ ' + L1);
    PostLabel(L2);
 end;
-
-
+```
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a FOR Statement }
 
@@ -1433,8 +1450,8 @@ begin
 end;
 
 
-
-
+```
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a DO Statement }
 
@@ -1455,8 +1472,8 @@ begin
    PostLabel(L2);
    EmitLn('ADDQ #2,SP');
 end;
-
-
+```
+```pascal
 {--------------------------------------------------------------}
 { Recognize and Translate a BREAK }
 
@@ -1465,8 +1482,8 @@ begin
    Match('b');
    EmitLn('BRA ' + L);
 end;
-
-
+```
+```pascal
 {--------------------------------------------------------------}
 { Recognize and Translate an "Other" }
 
@@ -1474,8 +1491,8 @@ procedure Other;
 begin
    EmitLn(GetName);
 end;
-
-
+```
+```pascal
 {--------------------------------------------------------------}
 { Recognize and Translate a Statement Block }
 
@@ -1496,8 +1513,8 @@ begin
 end;
 
 
-
-
+```
+```pascal
 {--------------------------------------------------------------}
 
 { Parse and Translate a Program }
@@ -1508,8 +1525,8 @@ begin
    if Look <> 'e' then Expected('End');
    EmitLn('END')
 end;
-
-
+```
+```pascal
 {--------------------------------------------------------------}
 
 { Initialize }
@@ -1529,8 +1546,10 @@ begin
    DoProgram;
 end.
 {--------------------------------------------------------------}
+```
 
 
+```
 *****************************************************************
 *                                                               *
 *                        COPYRIGHT NOTICE                       *
@@ -1538,4 +1557,5 @@ end.
 *   Copyright (C) 1988 Jack W. Crenshaw. All rights reserved.   *
 *                                                               *
 *****************************************************************
+```
 
