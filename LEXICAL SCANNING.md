@@ -994,7 +994,7 @@ needing that.  And you can change the type of Token to char.
 Next, to replace SymType, add the following constant string:
 
 
-   const KWcode: string[5] = 'xilee';
+      const KWcode: string[5] = 'xilee';
 
 
 (I'll be encoding all idents with the single character 'x'.)
@@ -1647,12 +1647,12 @@ end.
 ```
 A couple of comments:
 
- (1) The form for the expression parser,  using  FirstTerm, etc.,
+ - (1) The form for the expression parser,  using  FirstTerm, etc.,
      is  a  little  different from what you've seen before.  It's
      yet another variation on the same theme.  Don't let it throw
      you ... the change is not required for what follows.
 
- (2) Note that, as usual, I had to add calls to Fin  at strategic
+ - (2) Note that, as usual, I had to add calls to Fin  at strategic
      spots to allow for multiple lines.
 
 Before we proceed to adding the scanner, first copy this file and
