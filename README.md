@@ -9,7 +9,8 @@ Read the tutorial on-line
 <li>
   <a href="https://github.com/ranon-rat/letsBuildACompiler/blob/main/EXPRESSION_PARSING.md">Part 2: EXPRESSION PARSING</a>
 </li>
-  <li><a href="tutor3.txt">Part 3: MORE EXPRESSIONS</a>
+
+  <li><a href="https://github.com/ranon-rat/letsBuildACompiler/blob/main/MORE%20EXPRESSIONS.md">Part 3: MORE EXPRESSIONS</a>
 </li>
 <li><a href="tutor4.txt">Part 4 INTERPRETERS</a>
 </li><li><a href="tutor5.txt">Part 5: CONTROL CONSTRUCTS</a>
