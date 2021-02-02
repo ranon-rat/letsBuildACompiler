@@ -765,10 +765,10 @@ begin
 end;
 {--------------------------------------------------------------}
 
-
+```
 To test it,  you  can  temporarily  change  the  main  program as
 follows:
-
+```
 
 {--------------------------------------------------------------}
 { Main Program }
@@ -779,7 +779,7 @@ begin
    WriteLn(Lookup(Addr(KWList), Token, 4));
 end.
 {--------------------------------------------------------------}
-
+```
 
 Notice how Lookup is called: The Addr function sets up  a pointer
 to KWList, which gets passed to Lookup.
@@ -810,7 +810,7 @@ Now, add the two variable declarations:
 
 Modify the scanner to read:
 
-
+```
 {--------------------------------------------------------------}
 { Lexical Scanner }
 
@@ -843,14 +843,14 @@ begin
    SkipWhite;
 end;
 {--------------------------------------------------------------}
-
+```
 
 (Notice that Scan is now a procedure, not a function.)
 
 
 Finally, modify the main program to read:
 
-
+```
 {--------------------------------------------------------------}
 { Main Program }
 
@@ -868,7 +868,7 @@ begin
    until Token = EndSym;
 end.
 {--------------------------------------------------------------}
-
+```
 
 What we've done here is to replace the string Token  used earlier
 with an enumerated type. Scan returns the type in variable Token,
@@ -885,7 +885,7 @@ variables Token and Value, thereby eliminating the  local copies.
 It  also seems a little cleaner to move  the  table  lookup  into
 GetName.  The new form for the four procedures is, then:
 
-
+```
 {--------------------------------------------------------------}
 { Get an Identifier }
 
@@ -957,9 +957,9 @@ begin
    SkipWhite;
 end;
 {--------------------------------------------------------------}
-                             
+  ```                           
 
-RETURNING A CHARACTER
+# RETURNING A CHARACTER
 
 Essentially  every scanner I've ever seen  that  was  written  in
 Pascal  used  the  mechanism of an enumerated type that I've just
@@ -1004,7 +1004,7 @@ Next, to replace SymType, add the following constant string:
 
 Lastly, modify Scan and its relatives as follows:
 
-
+```
 {--------------------------------------------------------------}
 { Get an Identifier }
 
@@ -1094,14 +1094,14 @@ begin
    until Value = 'END';
 end.
 {--------------------------------------------------------------}
-
+```
 
 This program should  work  the  same  as the previous version.  A
 minor  difference  in  structure,  maybe,  but   it   seems  more
 straightforward to me.
 
 
-DISTRIBUTED vs CENTRALIZED SCANNERS
+# DISTRIBUTED vs CENTRALIZED SCANNERS
 
 The structure for the lexical scanner that I've just shown you is
 very conventional, and  about  99% of all compilers use something
@@ -1162,7 +1162,7 @@ only where they're really needed.  In places  where  keywords are
 not allowed, we don't slow things down by looking for them.
 
 
-MERGING SCANNER AND PARSER
+# MERGING SCANNER AND PARSER
 
 Now that we've covered  all  of the theory and general aspects of
 lexical scanning that we'll be needing, I'm FINALLY ready to back
