@@ -1,15 +1,12 @@
-                     LET'S BUILD A COMPILER!
+## LET'S BUILD A COMPILER!
 
-                                By
-
-                     Jack W. Crenshaw, Ph.D.
-
-                          19 August 1988
+By:Jack W. Crenshaw, Ph.D.
+19 August 1988
 
 
-                    Part V: CONTROL CONSTRUCTS
+# Part V: CONTROL CONSTRUCTS
 
-
+```
 *****************************************************************
 *                                                               *
 *                        COPYRIGHT NOTICE                       *
@@ -17,9 +14,9 @@
 *   Copyright (C) 1988 Jack W. Crenshaw. All rights reserved.   *
 *                                                               *
 *****************************************************************
+```
 
-
-INTRODUCTION
+# INTRODUCTION
 
 In  the  first  four  installments  of  this  series, we've  been
 concentrating on the parsing of math  expressions  and assignment
@@ -41,7 +38,7 @@ thinking, "Hey! This is EASY!" After we've finished this session,
 I'll bet you'll be thinking so, too.
 
 
-THE PLAN
+# THE PLAN
 
 In what follows, we'll be starting over again with a bare cradle,
 and as we've done twice before now, we'll build things up  one at
@@ -66,7 +63,7 @@ just echo the character input.
 OK, then, starting with  yet  another  copy  of the cradle, let's
 define the procedure:
 
-
+```pascal
 {--------------------------------------------------------------}
 { Recognize and Translate an "Other" }
 
@@ -75,11 +72,11 @@ begin
    EmitLn(GetName);
 end;
 {--------------------------------------------------------------}
-
+```
 
 Now include a call to it in the main program, thus:
 
-
+```pascal
 {--------------------------------------------------------------}
 { Main Program }
 
@@ -88,7 +85,7 @@ begin
    Other;
 end.
 {--------------------------------------------------------------}
-
+```
 
 Run  the program and see what you get.  Not very exciting, is it?
 But hang in there, it's a start, and things will get better.
@@ -114,7 +111,7 @@ statement.
 Armed with these ideas, we can proceed to build  up  our  parser.
 The code for a program (we  have  to call it DoProgram, or Pascal
 will complain, is:
-
+```pascal
 {--------------------------------------------------------------}
 { Parse and Translate a Program }
 
@@ -125,7 +122,7 @@ begin
    EmitLn('END')
 end;
 {--------------------------------------------------------------}
-
+```
 
 Notice  that  I've  arranged to emit  an  "END"  command  to  the
 assembler, which sort of  punctuates  the  output code, and makes
@@ -133,7 +130,7 @@ sense considering that we're parsing a complete program here.
 
 The code for Block is:
 
-
+```pascal
 {--------------------------------------------------------------}
 { Recognize and Translate a Statement Block }
 
@@ -144,7 +141,7 @@ begin
    end;
 end;
 {--------------------------------------------------------------}
-
+```
 
 (From the form of the procedure, you just KNOW we're going  to be
 adding to it in a bit!)
@@ -155,7 +152,7 @@ and  see  how  it works.  Well, it's still not  much,  but  we're
 getting closer.
 
 
-SOME GROUNDWORK
+# SOME GROUNDWORK
 
 Before we begin to define the various control constructs, we need
 to  lay a bit more groundwork.  First, a word of warning: I won't
@@ -217,7 +214,7 @@ outputs the labels at the proper place.
 
 Here are the two routines:
 
-
+```pascal
 {--------------------------------------------------------------}
 { Generate a Unique Label }
 
@@ -239,7 +236,7 @@ begin
 end;
 {--------------------------------------------------------------}
 
-
+```
 Notice that we've added  a  new  global  variable, LCount, so you
 need to change the VAR declarations at the top of the  program to
 look like this:
