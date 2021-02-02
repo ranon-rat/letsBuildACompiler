@@ -1,43 +1,13 @@
 
 
+# LET'S BUILD A COMPILER!
+
+By:Jack W. Crenshaw, Ph.D.
+2 April 1989
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                     LET'S BUILD A COMPILER!
-
-                                By
-
-                     Jack W. Crenshaw, Ph.D.
-
-                           2 April 1989
-
-
-                  Part VIII: A LITTLE PHILOSOPHY
-
-
+# Part VIII: A LITTLE PHILOSOPHY
+```
 *****************************************************************
 *                                                               *
 *                        COPYRIGHT NOTICE                       *
@@ -46,8 +16,9 @@
 *                                                               *
 *****************************************************************
 
+```
 
-INTRODUCTION
+# INTRODUCTION
 
 This is going to be a  different  kind of session than the others
 in our series on  parsing  and  compiler  construction.  For this
@@ -66,7 +37,7 @@ general what all  this  is  about.   I'll also share some general
 thoughts concerning the usefulness of what we've been doing.
 
 
-THE ROAD HOME
+# THE ROAD HOME
 
 So far, we've  covered  the parsing and translation of arithmetic
 expressions,  Boolean expressions, and combinations connected  by
@@ -104,21 +75,21 @@ define that language.
 To round out  the  series,  we  still  have a few items to cover.
 These include:
 
-   o Procedure calls, with and without parameters
+   - Procedure calls, with and without parameters
 
-   o Local and global variables
+   - Local and global variables
 
-   o Basic types, such as character and integer types
+   - Basic types, such as character and integer types
 
-   o Arrays
+   - Arrays
 
-   o Strings
+   - Strings
 
-   o User-defined types and structures
+   - User-defined types and structures
 
-   o Tree-structured parsers and intermediate languages
+   - Tree-structured parsers and intermediate languages
 
-   o Optimization
+   - Optimization
 
 These will all be  covered  in  future  installments.  When we're
 finished, you'll have all the tools you need to design  and build
@@ -183,7 +154,7 @@ language, using nothing  but  the same kinds of techniques you've
 learned so far.  And THAT brings up some interesting questions.
 
 
-WHY IS IT SO SIMPLE?
+# WHY IS IT SO SIMPLE?
 
 Before embarking  on this series, I always thought that compilers
 were just naturally complex computer  programs  ...  the ultimate
@@ -274,7 +245,7 @@ simplicity.
 Here are the areas that I think have  led  to  complexity  in the
 past:
 
-  o  Limited RAM Forcing Multiple Passes
+  -  Limited RAM Forcing Multiple Passes
 
      I  just  read  "Brinch  Hansen  on  Pascal   Compilers"  (an
      excellent book, BTW).  He  developed a Pascal compiler for a
@@ -306,7 +277,7 @@ past:
      started with different assumptions.
 
 
-  o  Batch Processing
+  -  Batch Processing
                               
      In the early days, batch  processing was the only choice ...
      there was no interactive computing.   Even  today, compilers
@@ -339,7 +310,7 @@ past:
      just restart the compilation after the error is fixed.
 
 
-  o  Large Programs
+  - Large Programs
 
      Early compilers were designed to handle  large  programs ...
      essentially infinite ones.    In those days there was little
@@ -365,7 +336,7 @@ past:
      to read to and write from memory.
 
 
-  o  Emphasis on Efficiency
+  -  Emphasis on Efficiency
 
      John  Backus has stated that, when  he  and  his  colleagues
      developed the original FORTRAN compiler, they KNEW that they
@@ -387,7 +358,7 @@ past:
      end up with reasonable code quality, anyway.
 
 
-  o  Limited Instruction Sets
+  -  Limited Instruction Sets
 
      The early computers had primitive instruction sets.   Things
      that  we  take  for granted, such as  stack  operations  and
@@ -417,7 +388,7 @@ past:
      to ease expression parsing.
 
 
-  o  Desire for Generality
+  - Desire for Generality
 
      Much of the content of the typical compiler text is taken up
      with issues we haven't addressed here at all ... things like
@@ -488,7 +459,7 @@ conditions, and weren't optimum  structures  for  the  problem at
 hand.
 
 
-CONCLUSION
+# CONCLUSION
 
 Anyway, that's my arm-waving  guess  as to how we've been able to
 keep things simple.  We started with something simple and  let it
@@ -515,6 +486,7 @@ the new subjects I listed at the beginning of this installment.
 
 See you then.
 
+```
 *****************************************************************
 *                                                               *
 *                        COPYRIGHT NOTICE                       *
@@ -522,3 +494,5 @@ See you then.
 *   Copyright (C) 1989 Jack W. Crenshaw. All rights reserved.   *
 *                                                               *
 *****************************************************************
+
+```
