@@ -1,15 +1,10 @@
+# LET'S BUILD A COMPILER!
 
+By:Jack W. Crenshaw, Ph.D.
 
-                     LET'S BUILD A COMPILER!
+31 August 1988
 
-                                By
-
-                     Jack W. Crenshaw, Ph.D.
-
-                          31 August 1988
-
-
-                   Part VI: BOOLEAN EXPRESSIONS
+# Part VI: BOOLEAN EXPRESSIONS
 
 
 *****************************************************************
@@ -21,7 +16,7 @@
 *****************************************************************
 
 
-INTRODUCTION
+# INTRODUCTION
 
 In Part V of this series,  we  took a look at control constructs,
 and developed parsing  routines  to  translate  them  into object
@@ -38,7 +33,7 @@ One of the things we'll do in this session is  to  plug that hole
 by expanding Condition into a true parser/translator.
 
 
-THE PLAN
+# THE PLAN
 
 We're going to  approach  this installment a bit differently than
 any of the others.    In those other installments, we started out
@@ -56,7 +51,7 @@ make up our minds what it is we want.  And the way to do  that is
 at the level of the BNF syntax rules (the GRAMMAR).
 
 
-THE GRAMMAR
+# THE GRAMMAR
 
 For some time  now,  we've been implementing BNF syntax equations
 for arithmetic expressions, without  ever  actually  writing them
@@ -77,10 +72,10 @@ is  a  bit  awkward.  I've found that it's better  to  write  the
 grammar this way:
 
 
-  <expression>    ::= <term> [<addop> <term>]*
-  <term>          ::= <signed factor> [<mulop> factor]*
-  <signed factor> ::= [<addop>] <factor>
-  <factor>        ::= <integer> | <variable> | (<expression>)
+    <expression>    ::= <term> [<addop> <term>]*
+    <term>          ::= <signed factor> [<mulop> factor]*
+    <signed factor> ::= [<addop>] <factor>
+    <factor>        ::= <integer> | <variable> | (<expression>)
 
 
 This puts the job of handling the unary minus onto  Factor, which
@@ -95,10 +90,10 @@ can define an analogous grammar for Boolean algebra.    A typical
 set or rules is:
 
 
- <b-expression>::= <b-term> [<orop> <b-term>]*
- <b-term>      ::= <not-factor> [AND <not-factor>]*
- <not-factor>  ::= [NOT] <b-factor>
- <b-factor>    ::= <b-literal> | <b-variable> | (<b-expression>)
+     <b-expression>::= <b-term> [<orop> <b-term>]*
+     <b-term>      ::= <not-factor> [AND <not-factor>]*
+     <not-factor>  ::= [NOT] <b-factor>
+     <b-factor>    ::= <b-literal> | <b-variable> | (<b-expression>)
 
 
 Notice that in this  grammar,  the  operator  AND is analogous to
@@ -125,7 +120,7 @@ is not allowed.  In Boolean algebra, though, the expression
 makes perfect sense, and the syntax shown allows for that.
 
 
-RELOPS
+# RELOPS
 
 OK, assuming that you're willing to accept the grammar I've shown
 here,  we  now  have syntax rules for both arithmetic and Boolean
@@ -245,7 +240,7 @@ compromises  so  that  a  single  parser can handle  the  grammar
 without backtracking.
 
 
-FIXING THE GRAMMAR
+# FIXING THE GRAMMAR
 
 The  problem  that  we've  encountered  comes   up   because  our
 definitions of both arithmetic and Boolean factors permit the use
@@ -321,15 +316,15 @@ In  any  case,  I've  elected  to  separate  the  operators  into
 different levels, although not as many as in C.
 
 
- <b-expression> ::= <b-term> [<orop> <b-term>]*
- <b-term>       ::= <not-factor> [AND <not-factor>]*
- <not-factor>   ::= [NOT] <b-factor>
- <b-factor>     ::= <b-literal> | <b-variable> | <relation>
- <relation>     ::= | <expression> [<relop> <expression]
- <expression>   ::= <term> [<addop> <term>]*
- <term>         ::= <signed factor> [<mulop> factor]*
- <signed factor>::= [<addop>] <factor>
- <factor>       ::= <integer> | <variable> | (<b-expression>)
+     <b-expression> ::= <b-term> [<orop> <b-term>]*
+     <b-term>       ::= <not-factor> [AND <not-factor>]*
+     <not-factor>   ::= [NOT] <b-factor>
+     <b-factor>     ::= <b-literal> | <b-variable> | <relation>
+     <relation>     ::= | <expression> [<relop> <expression]
+     <expression>   ::= <term> [<addop> <term>]*
+     <term>         ::= <signed factor> [<mulop> factor]*
+     <signed factor>::= [<addop>] <factor>
+     <factor>       ::= <integer> | <variable> | (<b-expression>)
 
 
 This grammar  results  in  the  same  set  of seven levels that I
@@ -352,7 +347,7 @@ to compile faster than C compilers.  If it's raw speed  you want,
 stick with the Pascal syntax.
 
 
-THE PARSER
+# THE PARSER
 
 Now that we've gotten through the decision-making process, we can
 press on with development of a parser.  You've done this  with me
@@ -366,7 +361,7 @@ of input token, so we're also going to need a new recognizer, and
 a  new procedure to read instances of that  token  type.    Let's
 start by defining the two new procedures:
 
-
+```pascal
 {--------------------------------------------------------------}
 { Recognize a Boolean Literal }
 
@@ -388,12 +383,12 @@ begin
 end;
 {--------------------------------------------------------------}
 
-
+```
 Type  these routines into your program.  You  can  test  them  by
 adding into the main program the print statement
 
 
-   WriteLn(GetBoolean);
+     WriteLn(GetBoolean);
 
 
 
@@ -411,7 +406,7 @@ Boolean  NOT.  So now we need to emit the right assembler code to
 load  those  values.    The  first cut at the Boolean  expression
 parser (BoolExpression, of course) is:
 
-
+```pascal
 {---------------------------------------------------------------}
 { Parse and Translate a Boolean Expression }
 
@@ -425,7 +420,7 @@ begin
 end;
 {---------------------------------------------------------------}
 
-
+```
 Add  this procedure to your parser, and call  it  from  the  main
 program (replacing the  print  statement you had just put there).
 As you  can  see,  we  still don't have much of a parser, but the
@@ -435,7 +430,7 @@ Next, of course, we have to expand the definition  of  a  Boolean
 expression.  We already have the BNF rule:
 
 
- <b-expression> ::= <b-term> [<orop> <b-term>]*
+   <b-expression> ::= <b-term> [<orop> <b-term>]*
 
 
 I prefer the Pascal versions of the "orops",  OR  and  XOR.   But
@@ -443,7 +438,7 @@ since we are keeping to single-character tokens here, I'll encode
 those with '|' and  '~'.  The  next  version of BoolExpression is
 almost a direct copy of the arithmetic procedure Expression:
 
-
+```
 {--------------------------------------------------------------}
 { Recognize and Translate a Boolean OR }
 
@@ -484,10 +479,10 @@ begin
 end;
 {---------------------------------------------------------------}
 
-
+```
 Note the new recognizer  IsOrOp,  which is also a copy, this time
 of IsAddOp:
-
+```
 
 {--------------------------------------------------------------}
 { Recognize a Boolean Orop }
@@ -497,7 +492,7 @@ begin
    IsOrop := c in ['|', '~'];
 end;
 {--------------------------------------------------------------}
-
+```
 OK, rename the old  version  of  BoolExpression to BoolTerm, then
 enter  the  code  above.  Compile and test this version.  At this
 point, the  output  code  is  starting  to  look pretty good.  Of
@@ -1045,7 +1040,7 @@ Assignment, and add  the  following procedure, copied from one of
 our  earlier  programs.     Note   that   Assignment   now  calls
 BoolExpression, so that we can assign Boolean variables.
 
-
+```
 {--------------------------------------------------------------}
 { Parse and Translate an Assignment Statement }
 
@@ -1059,7 +1054,7 @@ begin
    EmitLn('MOVE D0,(A0)');
 end;
 {--------------------------------------------------------------}
-
+```
 
 With  that change, you should now be  able  to  write  reasonably
 realistic-looking  programs,  subject  only  to our limitation on
@@ -1081,7 +1076,7 @@ eliminate the single-character  barrier  once and for all.  We'll
 also write our first complete  compiler, based on what we've done
 in this session.  See you then.
 
-
+```
 *****************************************************************
 *                                                               *
 *                        COPYRIGHT NOTICE                       *
@@ -1089,6 +1084,6 @@ in this session.  See you then.
 *   Copyright (C) 1988 Jack W. Crenshaw. All rights reserved.   *
 *                                                               *
 *****************************************************************
-
+```
 
 
